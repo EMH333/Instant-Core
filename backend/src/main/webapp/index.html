@@ -105,20 +105,20 @@
 
 <script>
     $("#get").click(function(){
-    $.get("/get/?" + $('#id').val(), function(result){
+    $.get("/get/?" + $('#id').val().trim(), function(result){
             $("#info").text(result);
         });
     });
 
     $("#vote").click(function(){
-    $.get("/vote/?" + $('#id').val() + "&" + $('#answer').val(), function(result){
+    $.get("/vote/?" + $('#id').val().trim() + "&" + $('#answer').val().trim(), function(result){
             $("#info").text(result);
         });
     });
 
     $("#put").click(function(){
-       if($('#in1').val() != null){
-       $.post("/add", {answers: $('#in1').val() }, function(result){
+       if($('#in1').val().trim() != null){
+       $.post("/add", {answers: $('#in1').val().trim() }, function(result){
             $("#info").text(result);
             $("#id").val(result);
              });

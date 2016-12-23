@@ -41,5 +41,6 @@ public class AddAnswer extends BasicServlet {
         } catch (NullPointerException e) {
             resp.sendError(404, "Invalid ID");
         }
+
     }
 }

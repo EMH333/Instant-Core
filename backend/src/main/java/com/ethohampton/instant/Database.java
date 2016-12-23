@@ -50,7 +50,7 @@ public class Database {
                     question.getOptionVotes().put(ans, votes);
                 } else {//if map doesn't exist then create it
                     votes = 1;
-                    HashMap opVotes = new HashMap();
+                    HashMap<String, Integer> opVotes = new HashMap<String, Integer>();
                     opVotes.put(ans, votes);
                     question.setOptionVotes(opVotes);
                 }

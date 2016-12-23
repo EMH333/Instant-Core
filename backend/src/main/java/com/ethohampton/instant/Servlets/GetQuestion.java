@@ -35,7 +35,7 @@ public class GetQuestion extends BasicServlet {
         //get question
         Question temp = Database.get(id);
         if (temp == null) {
-            resp.sendError(404, "Invalid ID");
+            resp.sendError(404, "Question not found");
             return;
         }
         if (temp.getOptions() != null && !temp.getOptions().isEmpty()) {
