@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
+    <servlet>
+        <servlet-name>MyServlet</servlet-name>
+        <servlet-class>com.ethohampton.instant.MyServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MyServlet</servlet-name>
+        <url-pattern>/hello</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GetQuestion</servlet-name>
+        <servlet-class>com.ethohampton.instant.Servlets.GetQuestion</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetQuestion</servlet-name>
+        <url-pattern>/get/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AddAnswer</servlet-name>
+        <servlet-class>com.ethohampton.instant.Servlets.AddAnswer</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddAnswer</servlet-name>
+        <url-pattern>/vote/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PutQuestion</servlet-name>
+        <servlet-class>com.ethohampton.instant.Servlets.PutQuestion</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PutQuestion</servlet-name>
+        <url-pattern>/add</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>RandomQuestion</servlet-name>
+        <servlet-class>com.ethohampton.instant.Servlets.RandomQuestion</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RandomQuestion</servlet-name>
+        <url-pattern>/random</url-pattern>
+    </servlet-mapping>
+
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
+    <filter>
+        <filter-name>ObjectifyFilter</filter-name>
+        <filter-class>com.googlecode.objectify.ObjectifyFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ObjectifyFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <listener>
+        <listener-class>com.ethohampton.instant.Startup.FirebaseInit</listener-class>
+    </listener>
+</web-app>

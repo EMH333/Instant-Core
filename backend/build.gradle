@@ -1,0 +1,39 @@
+// If you would like more information on the gradle-appengine-plugin please refer to the github page
+// https://github.com/GoogleCloudPlatform/gradle-appengine-plugin
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.google.appengine:gradle-appengine-plugin:1.9.48'
+    }
+}
+
+repositories {
+    jcenter();
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'appengine'
+
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
+
+dependencies {
+    appengineSdk 'com.google.appengine:appengine-java-sdk:1.9.48'
+    compile 'javax.servlet:servlet-api:2.5'
+    compile 'com.google.appengine:appengine-endpoints:1.9.28'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.google.guava:guava:19.0'//add this
+    compile 'com.googlecode.objectify:objectify:5.1.12'  //works with ObjectifyFilter in web.xml
+    compile 'com.google.firebase:firebase-admin:4.0.3'
+}
+
+appengine {
+    downloadSdk = true
+    appcfg {
+        oauth2 = true
+    }
+}
