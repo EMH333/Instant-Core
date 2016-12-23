@@ -19,7 +19,7 @@ public class Database {
         Long id = Util.generateUUID();//generates id
 
         //puts all answer posibilitys into hashmap with number mapped values
-        HashMap<String, String> options = new HashMap<String, String>();
+        HashMap<String, String> options = new HashMap<>();
         int i = 0;
         for (String op : questions) {
             options.put(String.valueOf(i), op);
@@ -43,14 +43,14 @@ public class Database {
         if (question != null) {
             if (question.getOptions().containsKey(ans)) {
                 //get current number of votes and add one to it for that answer as long as it exists
-                int votes = 0;
+                int votes;
                 if (question.getOptionVotes() != null && question.getOptionVotes().containsKey(ans)) {
                     votes = question.getOptionVotes().get(ans);
                     votes += 1;
                     question.getOptionVotes().put(ans, votes);
                 } else {//if map doesn't exist then create it
                     votes = 1;
-                    HashMap<String, Integer> opVotes = new HashMap<String, Integer>();
+                    HashMap<String, Integer> opVotes = new HashMap<>();
                     opVotes.put(ans, votes);
                     question.setOptionVotes(opVotes);
                 }
