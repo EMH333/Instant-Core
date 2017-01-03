@@ -1,6 +1,7 @@
 package com.ethohampton.instant;
 
 import com.ethohampton.instant.Objects.Question;
+import com.ethohampton.instant.Util.UUIDUtil;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.LoadResult;
 import com.googlecode.objectify.Result;
@@ -16,7 +17,7 @@ import java.util.Set;
 public class Database {
 
     public static Long put(String author, Set<String> questions) {
-        Long id = Util.generateUUID();//generates id
+        Long id = UUIDUtil.generateUUID();//generates id
 
         //puts all answer posibilitys into hashmap with number mapped values
         HashMap<String, String> options = new HashMap<>();

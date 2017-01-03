@@ -1,4 +1,4 @@
-package com.ethohampton.instant;
+package com.ethohampton.instant.Util;
 
 /**
  * Created by ethohampton on 12/16/16.

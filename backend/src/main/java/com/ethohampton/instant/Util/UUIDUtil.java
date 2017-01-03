@@ -1,4 +1,4 @@
-package com.ethohampton.instant;
+package com.ethohampton.instant.Util;
 
 import java.security.SecureRandom;
 import java.util.Random;
@@ -8,7 +8,7 @@ import java.util.Random;
  * utility methods for all classes
  */
 
-public class Util {
+public class UUIDUtil {
     public static long generateUUID(){
         Random r = new SecureRandom();
         return r.nextLong();

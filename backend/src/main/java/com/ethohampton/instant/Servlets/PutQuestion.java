@@ -1,6 +1,6 @@
 package com.ethohampton.instant.Servlets;
 
-import com.ethohampton.instant.Constants;
+import com.ethohampton.instant.Util.Constants;
 import com.ethohampton.instant.Database;
 import com.ethohampton.instant.Objects.BasicServlet;
 
