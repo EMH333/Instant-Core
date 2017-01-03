@@ -1,9 +1,9 @@
 package com.ethohampton.instant.Servlets;
 
-import com.ethohampton.instant.Util.Constants;
 import com.ethohampton.instant.Objects.BasicServlet;
 import com.ethohampton.instant.Objects.Question;
 import com.ethohampton.instant.OfyService;
+import com.ethohampton.instant.Util.Constants;
 import com.googlecode.objectify.Key;
 
 import java.io.IOException;
@@ -38,13 +38,18 @@ public class RandomQuestion extends BasicServlet {
             resp.sendError(404, "Invalid ID");
             return;
         }
+
+        //add id to response
+        resp.getWriter().println(q.getId() + Constants.SEPARATOR);
+
+        //add answers to response
         if (q.getOptions() != null && !q.getOptions().isEmpty()) {
             for (Map.Entry<String, String> t : q.getOptions().entrySet()) {
                 //insure the vote map exists and has the value in it before returning
                 if (q.getOptionVotes() != null && q.getOptionVotes().containsKey(t.getKey())) {
                     resp.getWriter().println(t.getValue() + Constants.SEPARATOR + q.getOptionVotes().get(t.getKey()));
                 } else {
-                    resp.getWriter().println(t.getValue() + Constants.SEPARATOR+"0");
+                    resp.getWriter().println(t.getValue() + Constants.SEPARATOR + "0");
                 }
             }
         }

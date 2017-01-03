@@ -8,7 +8,7 @@
     <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
 </head>
 <body role="document" style="padding-top: 50px;">
-    <script>
+<script>
     // Initialize Firebase
     var config = {
       apiKey: "AIzaSyA0gIcov4W-xF3fHzqRv9awKfri1k4mWSs",
@@ -18,7 +18,10 @@
       messagingSenderId: "162806694270"
     };
     firebase.initializeApp(config);
-  </script>
+
+
+
+</script>
 <div class="container theme-showcase" role="main">
     <div class="row">
         <div class="col-lg-6">
@@ -45,18 +48,18 @@
                 Random
             </button>
             <div>
-              <div></div>
-              <div>
-                <p id="userInfo"></p>
-              </div>
-              <input type="text" id="email" placeholder="Email">
-              <input type="password" id="password" placeholder="Password">
-              <div>
-                <button class="btn btn-default" id="sign-up">Sign Up</button>
-                <button class="btn btn-default" id="sign-in">Sign In</button>
-                <button class="btn btn-default" id="sign-out" >Sign Out</button>
-              </div>
-              <script type="text/javascript">
+                <div></div>
+                <div>
+                    <p id="userInfo"></p>
+                </div>
+                <input type="text" id="email" placeholder="Email">
+                <input type="password" id="password" placeholder="Password">
+                <div>
+                    <button class="btn btn-default" id="sign-up">Sign Up</button>
+                    <button class="btn btn-default" id="sign-in">Sign In</button>
+                    <button class="btn btn-default" id="sign-out">Sign Out</button>
+                </div>
+                <script type="text/javascript">
               $("#sign-up").click(function(){
                 var password = $("#password").val()
                 var email = $("#email").val()
@@ -77,7 +80,8 @@
               });
               $("#sign-out").click(function(event) {
                 firebase.auth().signOut().then(function() {
-                  window.alert("Signed out")
+                  window.alert("Signed out");
+                  document.cookie = "uid=";
                 }, function(error) {
                   var errorCode = error.code;
                   var errorMessage = error.message;
@@ -86,13 +90,21 @@
               });
 
               firebase.auth().onAuthStateChanged(function(user) {
+                 firebase.auth().currentUser.getToken(true).then(function(idToken) {
+                   document.cookie = "uid="+idToken;
+                }).catch(function(error) {
+                });
+
                 if (user) {
                   $("#userInfo").text(user.email)
                 }else{
                   $("#userInfo").text('')
                 }
               });
-              </script>
+
+
+
+                </script>
             </div>
         </div>
         <div class="col-lg-6">
@@ -105,7 +117,7 @@
 
 <script>
     $("#get").click(function(){
-    $.get("/get/?" + $('#id').val().trim(), function(result){
+      $.get("/get/?" + $('#id').val().trim(), function(result){
             $("#info").text(result);
         });
     });
@@ -135,6 +147,7 @@
             $("#info").text(result);
         });
     });
+
 </script>
 
 </body>

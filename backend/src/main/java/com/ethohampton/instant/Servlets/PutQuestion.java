@@ -1,10 +1,11 @@
 package com.ethohampton.instant.Servlets;
 
-import com.ethohampton.instant.Util.Constants;
 import com.ethohampton.instant.Database;
 import com.ethohampton.instant.Objects.BasicServlet;
+import com.ethohampton.instant.Util.Constants;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,10 +34,8 @@ public class PutQuestion extends BasicServlet {
             resp.sendError(3, "Invalid parsing of data");
         }
         String[] list = temp.split(Constants.ESCAPED_SEPARATOR);
-        Set<String> answers = new HashSet<String>();
-        for (String string : list) {
-            answers.add(string);
-        }
+        Set<String> answers = new HashSet<>();
+        Collections.addAll(answers, list);
         resp.getWriter().println(Database.put("EMH", answers));//// FIXME: 12/16/16 Change so that author is changable
 
     }
