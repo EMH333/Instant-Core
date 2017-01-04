@@ -31,7 +31,7 @@ public class PutQuestion extends BasicServlet {
         try {
             temp = req.getParameter("answers").trim();
         } catch (Exception e) {
-            resp.sendError(3, "Invalid parsing of data");
+            resp.sendError(400, "Invalid parsing of data");
         }
         String[] list = temp.split(Constants.ESCAPED_SEPARATOR);
         Set<String> answers = new HashSet<>();

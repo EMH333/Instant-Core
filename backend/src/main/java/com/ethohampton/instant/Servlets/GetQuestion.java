@@ -3,13 +3,11 @@ package com.ethohampton.instant.Servlets;
 import com.ethohampton.instant.Database;
 import com.ethohampton.instant.Objects.BasicServlet;
 import com.ethohampton.instant.Objects.Question;
-import com.ethohampton.instant.Util.Authentication;
 import com.ethohampton.instant.Util.Constants;
 
 import java.io.IOException;
 import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,17 +25,9 @@ public class GetQuestion extends BasicServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
         resp.setContentType("text/plain");
-        String userID = "";
-        //find authentication cookie
-        if (req.getCookies() != null) {
-            for (Cookie cookie : req.getCookies()) {
-                if (cookie.getName().equals("uid")) {
-                    userID = cookie.getValue();
-                }
-            }
-        }
-        //if authentication is valid then continue
-        if (Authentication.isVaild(userID)) {
+
+        //if authentication is valid then continue // TODO: 1/3/17 add authentication
+        if (true) {
             //gets string
             String queryString = req.getQueryString();
             Long id = 0L;
