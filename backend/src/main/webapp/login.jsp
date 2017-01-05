@@ -1,92 +1,54 @@
-
-
+<!DOCTYPE html>
 <html>
 <head>
-
+    <title>Apache Shiro Tutorial Webapp : Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Add some nice styling and functionality.  We'll just use Twitter Bootstrap -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">
+    <style>
+        body{padding-top:20px;}
+    </style>
 </head>
 <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please sign in</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form name="loginform" action="" method="POST" accept-charset="UTF-8" role="form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Username or Email" name="username" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="rememberMe" type="checkbox" value="true"> Remember Me
+                                    </label>
+                                </div>
+                                <input class="btn btn-lg btn-success btn-block" type="submit" value="Login">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<h2>Please Log in</h2>
-
-<shiro:guest>
-    <p>Here are a few sample accounts to play with in the default text-based Realm (used for this
-        demo and test installs only). Do you remember the movie these names came from? ;)</p>
-
-
-    <style type="text/css">
-        table.sample {
-            border-width: 1px;
-            border-style: outset;
-            border-color: blue;
-            border-collapse: separate;
-            background-color: rgb(255, 255, 240);
-        }
-
-        table.sample th {
-            border-width: 1px;
-            padding: 1px;
-            border-style: none;
-            border-color: blue;
-            background-color: rgb(255, 255, 240);
-        }
-
-        table.sample td {
-            border-width: 1px;
-            padding: 1px;
-            border-style: none;
-            border-color: blue;
-            background-color: rgb(255, 255, 240);
-        }
-    </style>
-
-
-    <table class="sample">
-        <thead>
-        <tr>
-            <th>Username</th>
-            <th>Password</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>root</td>
-            <td>secret</td>
-        </tr>
-        <tr>
-            <td>presidentskroob</td>
-            <td>12345</td>
-        </tr>
-        <tr>
-            <td>darkhelmet</td>
-            <td>ludicrousspeed</td>
-        </tr>
-        <tr>
-            <td>lonestarr</td>
-            <td>vespa</td>
-        </tr>
-        </tbody>
-    </table>
-    <br/><br/>
-</shiro:guest>
-
-<form name="loginform" action="" method="post">
-    <table align="left" border="0" cellspacing="0" cellpadding="3">
-        <tr>
-            <td>Username:</td>
-            <td><input type="text" name="username" maxlength="30"></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type="password" name="password" maxlength="30"></td>
-        </tr>
-        <tr>
-            <td colspan="2" align="left"><input type="checkbox" name="rememberMe"><font size="2">Remember Me</font></td>
-        </tr>
-        <tr>
-            <td colspan="2" align="right"><input type="submit" name="submit" value="Login"></td>
-        </tr>
-    </table>
-</form>
-
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
 </body>
 </html>
