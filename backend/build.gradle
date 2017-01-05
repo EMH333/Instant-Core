@@ -17,7 +17,7 @@ repositories {
 
 apply plugin: 'java'
 apply plugin: 'war'
-apply plugin: 'com.google.cloud.tools.appengine'
+apply plugin: 'appengine'
 apply plugin: 'maven'
 
 sourceCompatibility = JavaVersion.VERSION_1_7
@@ -25,6 +25,7 @@ targetCompatibility = JavaVersion.VERSION_1_7
 
 
 dependencies {
+    compile 'com.google.appengine:gradle-appengine-plugin:1.9.48'
     appengineSdk 'com.google.appengine:appengine-java-sdk:1.9.48'
     compile 'javax.servlet:servlet-api:2.5'
     compile 'com.google.appengine:appengine-endpoints:1.9.28'
