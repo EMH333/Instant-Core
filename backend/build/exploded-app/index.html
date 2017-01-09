@@ -5,126 +5,77 @@
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
 </head>
-<body role="document" style="padding-top: 70px;">
-    <script>
-    // Initialize Firebase
-    var config = {
-      apiKey: "AIzaSyA0gIcov4W-xF3fHzqRv9awKfri1k4mWSs",
-      authDomain: "instant-152505.firebaseapp.com",
-      databaseURL: "https://instant-152505.firebaseio.com",
-      storageBucket: "instant-152505.appspot.com",
-      messagingSenderId: "162806694270"
-    };
-    firebase.initializeApp(config);
+<body role="document" style="padding-top: 50px;">
+
+  <div class="container theme-showcase" role="main">
+      <div class="row">
+          <div class="col-lg-6">
+              <h1>Instant</h1>
+              <p>Enter info</p>
+              <input type="text" id="id" placeholder="ID">
+              <input type="text" id="answer" placeholder="Answer Number">
+              <div class="list">
+                  <ul class="list-group" id="answers">
+                      <li class="list-group-item"><input type="text" id="in1"></li>
+                      <li class="list-group-item"><input type="text" id="in2"></li>
+                  </ul>
+              </div>
+              <button class="btn btn-default" id="get">
+                  Get
+              </button>
+              <button class="btn btn-default" id="vote">
+                  Vote
+              </button>
+              <button class="btn btn-default" id="put">
+                  Put
+              </button>
+              <button class="btn btn-default" id="random">
+                  Random
+              </button>
+          </div>
+          <div class="col-lg-6">
+              <p id="info">
+
+              </p>
+          </div>
+      </div>
+  </div>
+
+  <script>
+      $("#get").click(function(){
+        $.get("/get/?" + $('#id').val().trim(), function(result){
+              $("#info").text(result);
+          });
+      });
+
+      $("#vote").click(function(){
+      $.get("/vote/?" + $('#id').val().trim() + "&" + $('#answer').val().trim(), function(result){
+              $("#info").text(result);
+          });
+      });
+
+      $("#put").click(function(){
+         if($('#in1').val().trim() != null){
+         $.post("/add", {answers: $('#in1').val().trim() }, function(result){
+              $("#info").text(result);
+              $("#id").val(result);
+               });
+         }else{
+         $.post("/add", function(result){
+              $("#info").text(result);
+              $("#id").val(result);
+              });
+         }
+      });
+
+      $("#random").click(function(){
+      $.get("/random", function(result){
+              $("#info").text(result);
+          });
+      });
+
   </script>
-<div class="container theme-showcase" role="main">
-    <div class="row">
-        <div class="col-lg-6">
-            <h1>Instant</h1>
-            <p>Enter info</p>
-            <input type="text" id="id" placeholder="ID">
-            <input type="text" id="answer" placeholder="Answer Number">
-            <div class="list">
-                <ul class="list-group" id="answers">
-                    <li class="list-group-item"><input type="text" id="in1"></li>
-                    <li class="list-group-item"><input type="text" id="in2"></li>
-                </ul>
-            </div>
-            <button class="btn btn-default" id="get">
-                Get
-            </button>
-            <button class="btn btn-default" id="vote">
-                Vote
-            </button>
-            <button class="btn btn-default" id="put">
-                Put
-            </button>
-            <div>
-              <div></div>
-              <div>
-                <p id="userInfo"></p>
-              </div>
-              <input type="text" id="email" placeholder="Email">
-              <input type="password" id="password" placeholder="Password">
-              <div>
-                <button class="btn btn-default" id="sign-up">Sign Up</button>
-                <button class="btn btn-default" id="sign-in">Sign In</button>
-                <button class="btn btn-default" id="sign-out" >Sign Out</button>
-              </div>
-              <script type="text/javascript">
-              $("#sign-up").click(function(){
-                var password = $("#password").val()
-                var email = $("#email").val()
-                firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    window.alert("Erorr! " + errorMessage);
-                  });
-              });
-              $("#sign-in").click(function(){
-                var password = $("#password").val()
-                var email = $("#email").val()
-                firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    window.alert("Erorr! " + errorMessage);
-                  });
-              });
-              $("#sign-out").click(function(event) {
-                firebase.auth().signOut().then(function() {
-                  window.alert("Signed out")
-                }, function(error) {
-                  var errorCode = error.code;
-                  var errorMessage = error.message;
-                  window.alert("Erorr! " + errorMessage);
-                });
-              });
-
-              firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                  $("#userInfo").text(user.email)
-                }
-              });
-              </script>
-            </div>
-        </div>
-        <div class="col-lg-6">
-            <p id="info">
-
-            </p>
-        </div>
-    </div>
-</div>
-
-<script>
-    $("#get").click(function(){
-    $.get("/get/?" + $('#id').val(), function(result){
-            $("#info").text(result);
-        });
-    });
-
-    $("#vote").click(function(){
-    $.get("/vote/?" + $('#id').val() + "&" + $('#answer').val(), function(result){
-            $("#info").text(result);
-        });
-    });
-
-    $("#put").click(function(){
-       if($('#in1').val() != null){
-       $.post("/add", {answers: $('#in1').val() }, function(result){
-            $("#info").text(result);
-            $("#id").val(result);
-             });
-       }else{
-       $.post("/add", function(result){
-            $("#info").text(result);
-            $("#id").val(result);
-            });
-       }
-    });
-</script>
 
 </body>
 </html>

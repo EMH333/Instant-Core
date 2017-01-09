@@ -3,8 +3,10 @@
 
 buildscript {
     repositories {
-        jcenter()
+        jcenter();
+        mavenCentral();
     }
+
     dependencies {
         classpath 'com.google.appengine:gradle-appengine-plugin:1.9.48'
     }
