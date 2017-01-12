@@ -5,7 +5,7 @@ package com.ethohampton.instant.Util;
  * <p>
  * Authenticates users
  */
-
+@Deprecated
 public class Authentication {
 
 }

@@ -22,6 +22,7 @@ public class AddAnswer extends BasicServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
+        Long startTime = System.currentTimeMillis();
         resp.setContentType("text/plain");
         //sets what question and answer to vote on
         Long id = 0L;
@@ -37,6 +38,7 @@ public class AddAnswer extends BasicServlet {
         try {
             Database.addAnswer(id, vote);
             resp.getWriter().println(Database.get(id).getOptionVotes().get((String.valueOf(vote))));
+            resp.getWriter().println(System.currentTimeMillis() - startTime);// TODO: 1/11/17 remove this for production
             resp.setStatus(200);
         } catch (NullPointerException e) {
             resp.sendError(404, "Invalid ID");

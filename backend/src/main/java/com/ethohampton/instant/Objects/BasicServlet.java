@@ -1,7 +1,5 @@
 package com.ethohampton.instant.Objects;
 
-import com.google.appengine.api.NamespaceManager;
-
 import javax.servlet.http.HttpServlet;
 
 /**
@@ -12,6 +10,5 @@ import javax.servlet.http.HttpServlet;
 public class BasicServlet extends HttpServlet {
     public BasicServlet() {
         //OfyService.ofy().factory().begin();
-        NamespaceManager.set("Questions");
     }
 }

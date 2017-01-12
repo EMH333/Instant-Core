@@ -22,7 +22,9 @@ apply plugin: 'war'
 apply plugin: 'appengine'
 apply plugin: 'maven'
 
+//noinspection GroovyUnusedAssignment
 sourceCompatibility = JavaVersion.VERSION_1_7
+//noinspection GroovyUnusedAssignment
 targetCompatibility = JavaVersion.VERSION_1_7
 
 
