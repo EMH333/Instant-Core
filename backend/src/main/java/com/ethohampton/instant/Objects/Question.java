@@ -33,8 +33,7 @@ public class Question {
         this.optionVotes = optionVotes;
     }
 
-    public Question(long id, long creationTime, String creator, HashMap<String, String> options) {
-        this.id = id;
+    public Question(long creationTime, String creator, HashMap<String, String> options) {
         this.creationTime = creationTime;
         this.creator = creator;
         this.options = options;

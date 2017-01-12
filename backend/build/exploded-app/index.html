@@ -8,41 +8,41 @@
 </head>
 <body role="document" style="padding-top: 50px;">
 
-  <div class="container theme-showcase" role="main">
-      <div class="row">
-          <div class="col-lg-6">
-              <h1>Instant</h1>
-              <p>Enter info</p>
-              <input type="text" id="id" placeholder="ID">
-              <input type="text" id="answer" placeholder="Answer Number">
-              <div class="list">
-                  <ul class="list-group" id="answers">
-                      <li class="list-group-item"><input type="text" id="in1"></li>
-                      <li class="list-group-item"><input type="text" id="in2"></li>
-                  </ul>
-              </div>
-              <button class="btn btn-default" id="get">
-                  Get
-              </button>
-              <button class="btn btn-default" id="vote">
-                  Vote
-              </button>
-              <button class="btn btn-default" id="put">
-                  Put
-              </button>
-              <button class="btn btn-default" id="random">
-                  Random
-              </button>
-          </div>
-          <div class="col-lg-6">
-              <p id="info">
+<div class="container theme-showcase" role="main">
+    <div class="row">
+        <div class="col-lg-6">
+            <h1>Instant</h1>
+            <p>Enter info</p>
+            <input type="text" id="id" placeholder="ID">
+            <input type="text" id="answer" placeholder="Answer Number">
+            <div class="list">
+                <ul class="list-group" id="answers">
+                    <li class="list-group-item"><input type="text" id="in1"></li>
+                    <li class="list-group-item"><input type="text" id="in2"></li>
+                </ul>
+            </div>
+            <button class="btn btn-default" id="get">
+                Get
+            </button>
+            <button class="btn btn-default" id="vote">
+                Vote
+            </button>
+            <button class="btn btn-default" id="put">
+                Put
+            </button>
+            <button class="btn btn-default" id="random">
+                Random
+            </button>
+        </div>
+        <div class="col-lg-6">
+            <p id="info">
 
-              </p>
-          </div>
-      </div>
-  </div>
+            </p>
+        </div>
+    </div>
+</div>
 
-  <script>
+<script>
       $("#get").click(function(){
         $.get("/get/?" + $('#id').val().trim(), function(result){
               $("#info").text(result);
@@ -75,7 +75,8 @@
           });
       });
 
-  </script>
+
+</script>
 
 </body>
 </html>
