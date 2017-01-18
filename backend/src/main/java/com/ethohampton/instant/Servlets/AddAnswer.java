@@ -2,6 +2,8 @@ package com.ethohampton.instant.Servlets;
 
 import com.ethohampton.instant.Database;
 import com.ethohampton.instant.Objects.BasicServlet;
+import com.ethohampton.instant.Objects.Question;
+import com.ethohampton.instant.Util.QuestionUtils;
 
 import java.io.IOException;
 
@@ -22,7 +24,6 @@ public class AddAnswer extends BasicServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws IOException {
-        Long startTime = System.currentTimeMillis();
         resp.setContentType("text/plain");
         //sets what question and answer to vote on
         Long id = 0L;
@@ -35,13 +36,12 @@ public class AddAnswer extends BasicServlet {
             resp.sendError(400, "URL Invalid");
         }
 
-        try {
-            Database.addAnswer(id, vote);
-            resp.getWriter().println(Database.get(id).getOptionVotes().get((String.valueOf(vote))));
-            resp.getWriter().println(System.currentTimeMillis() - startTime);// TODO: 1/11/17 remove this for production
+        Question q = Database.addAnswer(id, vote);
+        if (q != null) {//true if successful vote
+            resp.getWriter().println(QuestionUtils.format(q));
             resp.setStatus(200);
-        } catch (NullPointerException e) {
-            resp.sendError(404, "Invalid ID");
+        } else {
+            resp.sendError(404, "Invalid Answer or ID");
         }
 
     }

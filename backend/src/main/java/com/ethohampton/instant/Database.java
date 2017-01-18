@@ -5,6 +5,7 @@ import com.google.appengine.api.NamespaceManager;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.LoadResult;
 import com.googlecode.objectify.Result;
+import com.sun.istack.internal.Nullable;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -32,13 +33,19 @@ public class Database {
     }
 
     //saves question
-    public static boolean put(Question question) {
+    private static boolean put(Question question) {
         NamespaceManager.set("Questions");
         OfyService.ofy().save().entity(question).now();
         return true;
     }
 
-    public static boolean addAnswer(Long id, int answer) {
+    /**
+     * @param id     of the question
+     * @param answer number of the question
+     * @return a question if succesfull, null if not
+     */
+    @Nullable
+    public static Question addAnswer(Long id, int answer) {
         NamespaceManager.set("Questions");
         Question question = get(id);
         String ans = String.valueOf(answer);
@@ -58,13 +65,13 @@ public class Database {
                 }
                 //if the put into the database works then return true
                 if (put(question)) {
-                    return true;
+                    return question;
                 }
             } else {
-                return false;
+                return null;
             }
         }
-        return false;
+        return null;
     }
 
     public static Question get(Long id) {

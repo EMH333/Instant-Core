@@ -3,10 +3,9 @@ package com.ethohampton.instant.Servlets;
 import com.ethohampton.instant.Database;
 import com.ethohampton.instant.Objects.BasicServlet;
 import com.ethohampton.instant.Objects.Question;
-import com.ethohampton.instant.Util.Constants;
+import com.ethohampton.instant.Util.QuestionUtils;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,16 +43,9 @@ public class GetQuestion extends BasicServlet {
                 resp.sendError(404, "Question not found");
                 return;
             }
-            if (temp.getOptions() != null && !temp.getOptions().isEmpty()) {
-                for (Map.Entry<String, String> t : temp.getOptions().entrySet()) {
-                    //insure the vote map exists and has the value in it before returning
-                    if (temp.getOptionVotes() != null && temp.getOptionVotes().containsKey(t.getKey())) {
-                        resp.getWriter().println(t.getValue() + Constants.SEPARATOR + temp.getOptionVotes().get(t.getKey()));
-                    } else {
-                        resp.getWriter().println(t.getValue() + Constants.SEPARATOR + "0");
-                    }
-                }
-            }
+            //formats question and sends response
+            resp.getWriter().println(QuestionUtils.format(temp));
+
         } else {
             resp.sendError(401);
         }
