@@ -19,8 +19,8 @@ repositories {
 
 apply plugin: 'java'
 apply plugin: 'war'
-apply plugin: 'appengine'
 apply plugin: 'maven'
+apply plugin: 'appengine'
 
 //noinspection GroovyUnusedAssignment
 sourceCompatibility = JavaVersion.VERSION_1_7
