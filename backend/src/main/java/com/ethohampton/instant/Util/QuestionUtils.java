@@ -20,8 +20,11 @@ public class QuestionUtils {
             return "";
         }
         if (question.getOptions() != null && !question.getOptions().isEmpty()) {
+            //adds creator and amount of answers
             formatted.append(question.getCreator()).append(Constants.SEPARATOR);
             formatted.append(question.getOptions().size()).append(Constants.SEPARATOR);
+
+            //adds answers and allows for answers with no votes
             for (Map.Entry<String, String> t : question.getOptions().entrySet()) {
                 //insure the vote map exists and has the value in it before returning
                 if (question.getOptionVotes() != null && question.getOptionVotes().containsKey(t.getKey())) {
