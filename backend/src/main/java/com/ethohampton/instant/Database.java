@@ -5,7 +5,6 @@ import com.google.appengine.api.NamespaceManager;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.LoadResult;
 import com.googlecode.objectify.Result;
-import com.sun.istack.internal.Nullable;
 
 import java.util.HashMap;
 import java.util.Set;
@@ -44,7 +43,6 @@ public class Database {
      * @param answer number of the question
      * @return a question if succesfull, null if not
      */
-    @Nullable
     public static Question addAnswer(Long id, int answer) {
         NamespaceManager.set("Questions");
         Question question = get(id);
