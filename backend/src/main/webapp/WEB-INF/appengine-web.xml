@@ -2,12 +2,31 @@
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
     <application>instant-152505</application>
     <version>alpha-v1-1</version>
-    <threadsafe>true</threadsafe>
 
     <system-properties>
-        <property name="java.util.logging.config.file" value="WEB-INF/logging.properties" />
+        <property name="java.util.logging.config.file" value="WEB-INF/classes/logging.properties" />
     </system-properties>
 
+    <threadsafe>true</threadsafe>
     <sessions-enabled>true</sessions-enabled>
-    <async-session-persistence enabled="true" />
+    <!--
+        Changes to a session are put into the data store asynchronously, which produces some risk
+        of losing sync, but with a big improvement in latency, which means cheaper.-->
+    <async-session-persistence enabled="true" queue-name="default" />
+
+    <inbound-services>
+        <service>mail</service>
+    </inbound-services>
+
+    <static-files>
+        <include expiration="10m" path="**" />
+        <include expiration="10m" path="/images/*" />
+        <include expiration="10m" path="/**.css" />
+        <include expiration="10m" path="/**.js" />
+    </static-files>
+
+    <resource-files>
+        <exclude path="**" />
+    </resource-files>
+
 </appengine-web-app>
