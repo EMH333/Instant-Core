@@ -111,7 +111,7 @@ public class GoogleLoginServlet extends BaseServlet {
             GaeUserDAO dao = daoProvider.get();
             GaeUser user = dao.findUser(username);
             if (user == null) {
-                user = new GaeUser(username, Sets.newHashSet("user"), Sets.<String>newHashSet());
+                user = new GaeUser(username, Sets.newHashSet("user"), Sets.newHashSet());
                 user.register();
                 dao.saveUser(user, true);
             }

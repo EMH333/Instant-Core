@@ -71,7 +71,7 @@ public class LoginServlet extends BaseServlet {
                 //subject.login(token);
                 issueJson(response, HTTP_STATUS_OK, MESSAGE, "ok");
             } catch (AuthenticationException e) {
-                issueJson(response, HTTP_STATUS_NOT_FOUND, MESSAGE, "cannot authorize " + username + ": " + e.getMessage());
+                issueJson(response, HTTP_STATUS_NOT_FOUND, MESSAGE, "cannot authorize " + username + ": " + e.getMessage());//FIXME // STOPSHIP: 3/12/17 Change so you can not recive login info from login
             }
         } catch (Exception e) {
             issueJson(response, HTTP_STATUS_INTERNAL_SERVER_ERROR, MESSAGE, "Internal error: " + e.getMessage());

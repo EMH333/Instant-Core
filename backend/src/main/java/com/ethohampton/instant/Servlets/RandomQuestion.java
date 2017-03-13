@@ -34,6 +34,9 @@ public class RandomQuestion extends BasicServlet {
         Random r = new Random();
         int i = r.nextInt(keys.size());
 
+        resp.getWriter().println(keys.size());
+
+
         //get question
         Question q = Database.get(keys.get(i).getId());
         //makes sure question is not null
@@ -43,5 +46,6 @@ public class RandomQuestion extends BasicServlet {
         }
         //send response
         resp.getWriter().println(QuestionUtils.format(q));
+
     }
 }

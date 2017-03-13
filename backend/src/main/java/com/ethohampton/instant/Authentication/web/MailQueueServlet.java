@@ -25,7 +25,6 @@ package com.ethohampton.instant.Authentication.web;
 import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
 import com.ethohampton.instant.Authentication.service.SendEmail;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Logger;
@@ -33,9 +32,7 @@ import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.inject.Singleton;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * Send registration emails via the task queue.  We need to use the task
@@ -70,6 +67,8 @@ public class MailQueueServlet extends BaseServlet {
         }
     }
 
+    // FIXME: 2/27/17 Change this to properly handle requests to change stuff
+    /*
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter(USERNAME);
@@ -93,5 +92,5 @@ public class MailQueueServlet extends BaseServlet {
         } catch (Exception e) {
             LOG.severe("Error sending mail to " + username + ": " + e.getMessage());
         }
-    }
+    */
 }

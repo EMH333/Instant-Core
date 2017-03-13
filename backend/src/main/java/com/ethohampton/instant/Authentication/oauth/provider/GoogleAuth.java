@@ -20,8 +20,9 @@
 
 package com.ethohampton.instant.Authentication.oauth.provider;
 
-import com.cilogi.shiro.gae.UserAuthType;
-import com.cilogi.shiro.oauth.OAuthInfo;
+
+import com.ethohampton.instant.Authentication.gae.UserAuthType;
+import com.ethohampton.instant.Authentication.oauth.OAuthInfo;
 import com.google.appengine.api.urlfetch.HTTPMethod;
 import com.google.appengine.api.urlfetch.HTTPRequest;
 import com.google.appengine.api.urlfetch.HTTPResponse;

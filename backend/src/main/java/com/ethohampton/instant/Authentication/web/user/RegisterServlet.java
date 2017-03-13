@@ -21,9 +21,10 @@
 
 package com.ethohampton.instant.Authentication.web.user;
 
-import com.cilogi.shiro.gae.GaeUser;
-import com.cilogi.shiro.gae.GaeUserDAO;
-import com.cilogi.shiro.web.BaseServlet;
+
+import com.ethohampton.instant.Authentication.gae.GaeUser;
+import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
+import com.ethohampton.instant.Authentication.web.BaseServlet;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;

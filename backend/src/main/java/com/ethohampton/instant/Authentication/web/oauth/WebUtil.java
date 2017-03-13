@@ -20,8 +20,9 @@
 
 package com.ethohampton.instant.Authentication.web.oauth;
 
-import com.cilogi.shiro.oauth.provider.FacebookAuth;
-import com.cilogi.shiro.oauth.provider.GoogleAuth;
+
+import com.ethohampton.instant.Authentication.oauth.provider.FacebookAuth;
+import com.ethohampton.instant.Authentication.oauth.provider.GoogleAuth;
 import com.google.appengine.api.urlfetch.HTTPMethod;
 import com.google.appengine.api.urlfetch.HTTPRequest;
 import com.google.appengine.api.urlfetch.HTTPResponse;

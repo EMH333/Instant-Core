@@ -21,13 +21,10 @@
 
 package com.ethohampton.instant.Authentication.guice;
 
-import com.cilogi.shiro.oauth.provider.FacebookAuth;
-import com.cilogi.shiro.oauth.provider.IOAuthProviderInfo;
-import com.cilogi.util.doc.CreateDoc;
+
+import com.ethohampton.instant.Authentication.oauth.provider.FacebookAuth;
+import com.ethohampton.instant.Authentication.oauth.provider.IOAuthProviderInfo;
 import com.google.appengine.api.utils.SystemProperty;
-import com.google.appengine.tools.appstats.AppstatsFilter;
-import com.google.appengine.tools.appstats.AppstatsServlet;
-import com.google.common.base.Charsets;
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 import com.google.inject.name.Names;
@@ -35,13 +32,8 @@ import com.googlecode.objectify.cache.AsyncCacheFilter;
 
 import org.apache.shiro.web.servlet.ShiroFilter;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Locale;
 import java.util.logging.Logger;
 
-import freemarker.template.Configuration;
-import freemarker.template.TemplateModelException;
 
 
 public class ServeLogic extends AbstractModule {
@@ -64,10 +56,9 @@ public class ServeLogic extends AbstractModule {
     @Override
     protected void configure() {
         bind(IOAuthProviderInfo.class).to(FacebookAuth.class);
-        bind(CreateDoc.class).toInstance(createDoc());
         bind(ShiroFilter.class).in(Scopes.SINGLETON);
-        bind(AppstatsServlet.class).in(Scopes.SINGLETON);
-        bind(AppstatsFilter.class).in(Scopes.SINGLETON);
+        //bind(AppstatsServlet.class).in(Scopes.SINGLETON);
+        //bind(AppstatsFilter.class).in(Scopes.SINGLETON);
         bind(AsyncCacheFilter.class).in(Scopes.SINGLETON);// needed to sync the datastore if its running async
         bindString("tim", "tim");
         bindString("email.from", "admin@gaeshiro.appspotmail.com");
@@ -78,21 +69,6 @@ public class ServeLogic extends AbstractModule {
 
     private void bindString(String key, String value) {
         bind(String.class).annotatedWith(Names.named(key)).toInstance(value);
-    }
-
-    private CreateDoc createDoc() {
-        try {
-            URL base = getClass().getResource("/ftl/");
-            CreateDoc create = new CreateDoc(base, Locale.getDefault(), Charsets.UTF_8.name());
-            Configuration cfg = create.cfg();
-            cfg.setSharedVariable("userBaseUrl", userBaseUrl);
-            cfg.setSharedVariable("staticBaseUrl", staticBaseUrl);
-            return create;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (TemplateModelException e) {
-            throw new RuntimeException(e);
-        }
     }
 
 

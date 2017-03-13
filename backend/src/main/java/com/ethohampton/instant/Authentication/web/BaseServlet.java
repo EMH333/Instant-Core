@@ -21,7 +21,9 @@
 
 package com.ethohampton.instant.Authentication.web;
 
+import com.ethohampton.instant.Authentication.gae.GaeUser;
 import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
+import com.ethohampton.instant.Authentication.util.MimeTypes;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 
@@ -32,12 +34,14 @@ import org.apache.shiro.subject.Subject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.util.Collection;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -57,7 +61,6 @@ public class BaseServlet extends HttpServlet implements ParameterNames, MimeType
     protected final int HTTP_STATUS_FORBIDDEN = 403;
     protected final int HTTP_STATUS_INTERNAL_SERVER_ERROR = 500;
     protected Provider<GaeUserDAO> daoProvider;
-    private CreateDoc create;
 
     protected BaseServlet(Provider<GaeUserDAO> daoProvider) {
         this.daoProvider = daoProvider;
@@ -89,9 +92,16 @@ public class BaseServlet extends HttpServlet implements ParameterNames, MimeType
         }
     }
 
-    @Inject
-    protected void setCreate(CreateDoc create) {
-        this.create = create;
+    // to avoid having to create a map for short argument lists
+    public static Map<String, Object> mapArgs(Object[] list) {
+        Preconditions.checkNotNull(list);
+        Preconditions.checkArgument(list.length % 2 == 0, "Your list has to have an even length, not " + list.length);
+
+        Map<String, Object> out = Maps.newHashMap();
+        for (int i = 0; i < list.length; i += 2) {
+            out.put((String) list[i], list[i + 1]);
+        }
+        return out;
     }
 
     protected void issue(String mimeType, int returnCode, String output, HttpServletResponse response) throws IOException {
@@ -118,20 +128,16 @@ public class BaseServlet extends HttpServlet implements ParameterNames, MimeType
     }
 
     protected void showView(HttpServletResponse response, String templateName, Object... args) throws IOException {
-        showView(response, templateName, CreateDoc.map(args));
+        showView(response, templateName, mapArgs(args));  //showView(response, templateName); // FIXME: 3/12/17 Implement properly
     }
 
     protected void showView(HttpServletResponse response, String templateName, Map<String, Object> args) throws IOException {
         try {
-            String html = create.createDocumentString(templateName, args);
+            String html = createDocumentString(templateName, args); // FIXME: 2/27/17 Implement this properly
             issue(MIME_TEXT_HTML, HTTP_STATUS_OK, html, response);
         } catch (Exception e) {
             issue(MIME_TEXT_PLAIN, HTTP_STATUS_NOT_FOUND, "Can't find " + templateName + ": " + e.getMessage(), response);
         }
-    }
-
-    protected String view(String templateName, Object... args) {
-        return create.createDocumentString(templateName, CreateDoc.map(args));
     }
 
     protected String stringParameter(@NonNull String name, HttpServletRequest request, String deflt) {
@@ -170,5 +176,34 @@ public class BaseServlet extends HttpServlet implements ParameterNames, MimeType
         }
     }
 
+    public String createDocumentString(String templateName, Map<String, ?> map) {
+        try {
+            return new String(createDocument(templateName, map));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Create a document from a template and a map
+     *
+     * @param templateName The  name of the template.
+     *                     because we look for different files based on the locale.
+     * @param map          The map passed in by FreeMarker when instantiating the template.
+     * @return The instantiated document.  Bytes are returned as this could be in any text encoding and will
+     * often just be set as a web resource.  May be some mileage in returning a string, even though.
+     * @throws IOException If there are any problems locating or processint the template.
+     */
+    public byte[] createDocument(String templateName, Map<String, ?> map) throws IOException {
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        Writer out = new OutputStreamWriter(os);
+
+        // template.process(map, out);
+        out.append(map.toString());
+
+        out.close();
+        return os.toByteArray();
+
+    }
 
 }

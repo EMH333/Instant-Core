@@ -20,8 +20,9 @@
 
 package com.ethohampton.instant.Authentication.oauth.provider;
 
-import com.cilogi.shiro.gae.UserAuthType;
-import com.cilogi.shiro.oauth.OAuthInfo;
+
+import com.ethohampton.instant.Authentication.gae.UserAuthType;
+import com.ethohampton.instant.Authentication.oauth.OAuthInfo;
 
 import org.json.JSONException;
 import org.json.JSONObject;

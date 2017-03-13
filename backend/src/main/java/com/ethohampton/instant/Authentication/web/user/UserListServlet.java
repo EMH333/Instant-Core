@@ -21,12 +21,13 @@
 
 package com.ethohampton.instant.Authentication.web.user;
 
-import com.cilogi.shiro.gae.GaeUser;
-import com.cilogi.shiro.gae.GaeUserDAO;
-import com.cilogi.shiro.web.BaseServlet;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.ethohampton.instant.Authentication.gae.GaeUser;
+import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
+import com.ethohampton.instant.Authentication.web.BaseServlet;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
+import com.google.appengine.repackaged.org.codehaus.jackson.map.ObjectMapper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.googlecode.objectify.cmd.Query;

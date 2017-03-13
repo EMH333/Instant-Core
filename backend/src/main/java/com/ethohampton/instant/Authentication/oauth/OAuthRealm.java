@@ -20,7 +20,8 @@
 
 package com.ethohampton.instant.Authentication.oauth;
 
-import com.cilogi.shiro.gae.MemcacheManager;
+
+import com.ethohampton.instant.Authentication.gae.MemcacheManager;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
