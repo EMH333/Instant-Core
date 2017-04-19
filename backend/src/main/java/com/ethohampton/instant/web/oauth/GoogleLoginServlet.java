@@ -18,12 +18,12 @@
 //
 
 
-package com.ethohampton.instant.Authentication.web.oauth;
+package com.ethohampton.instant.web.oauth;
 
 import com.ethohampton.instant.Authentication.gae.GaeUser;
 import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
 import com.ethohampton.instant.Authentication.googlegae.GoogleGAEAuthenticationToken;
-import com.ethohampton.instant.Authentication.web.BaseServlet;
+import com.ethohampton.instant.web.BaseServlet;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;

@@ -18,11 +18,11 @@
 //
 
 
-package com.ethohampton.instant.Authentication.web.user.dev;
+package com.ethohampton.instant.web.user.dev;
 
 import com.ethohampton.instant.Authentication.gae.GaeUser;
 import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
-import com.ethohampton.instant.Authentication.web.BaseServlet;
+import com.ethohampton.instant.web.BaseServlet;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 
@@ -61,7 +61,7 @@ public class AddUsersServlet extends BaseServlet {
             String nm = "user_" + i + "@" + domain;
             GaeUser user = dao.get(nm);
             if (user == null) {
-                user = new GaeUser(nm, "friend", ImmutableSet.of("user"), Sets.<String>newHashSet());
+                user = new GaeUser(nm, "friend", ImmutableSet.of("user"), Sets.newHashSet());
                 user.register();
                 dao.saveUser(user, true);
             }

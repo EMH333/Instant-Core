@@ -18,7 +18,7 @@
 //
 
 
-package com.ethohampton.instant.Authentication.web;
+package com.ethohampton.instant.web;
 
 import java.io.IOException;
 

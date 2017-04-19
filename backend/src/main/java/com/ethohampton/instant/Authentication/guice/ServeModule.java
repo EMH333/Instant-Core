@@ -22,20 +22,20 @@
 package com.ethohampton.instant.Authentication.guice;
 
 
-import com.ethohampton.instant.Authentication.web.FreemarkerServlet;
-import com.ethohampton.instant.Authentication.web.MailQueueServlet;
-import com.ethohampton.instant.Authentication.web.MailReceiveServlet;
-import com.ethohampton.instant.Authentication.web.oauth.GoogleLoginServlet;
-import com.ethohampton.instant.Authentication.web.oauth.OAuthLoginServlet;
-import com.ethohampton.instant.Authentication.web.user.ConfirmServlet;
-import com.ethohampton.instant.Authentication.web.user.LoginServlet;
-import com.ethohampton.instant.Authentication.web.user.RegisterServlet;
-import com.ethohampton.instant.Authentication.web.user.SettingsServlet;
-import com.ethohampton.instant.Authentication.web.user.StatusServlet;
-import com.ethohampton.instant.Authentication.web.user.UserDeleteServlet;
-import com.ethohampton.instant.Authentication.web.user.UserListServlet;
-import com.ethohampton.instant.Authentication.web.user.UserSuspendServlet;
-import com.ethohampton.instant.Authentication.web.user.dev.AddUsersServlet;
+import com.ethohampton.instant.web.FreemarkerServlet;
+import com.ethohampton.instant.web.MailQueueServlet;
+import com.ethohampton.instant.web.MailReceiveServlet;
+import com.ethohampton.instant.web.oauth.GoogleLoginServlet;
+import com.ethohampton.instant.web.oauth.OAuthLoginServlet;
+import com.ethohampton.instant.web.user.ConfirmServlet;
+import com.ethohampton.instant.web.user.LoginServlet;
+import com.ethohampton.instant.web.user.RegisterServlet;
+import com.ethohampton.instant.web.user.SettingsServlet;
+import com.ethohampton.instant.web.user.StatusServlet;
+import com.ethohampton.instant.web.user.UserDeleteServlet;
+import com.ethohampton.instant.web.user.UserListServlet;
+import com.ethohampton.instant.web.user.UserSuspendServlet;
+import com.ethohampton.instant.web.user.dev.AddUsersServlet;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.inject.servlet.ServletModule;

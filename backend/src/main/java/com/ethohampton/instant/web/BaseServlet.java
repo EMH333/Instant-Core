@@ -19,7 +19,7 @@
 //
 
 
-package com.ethohampton.instant.Authentication.web;
+package com.ethohampton.instant.web;
 
 import com.ethohampton.instant.Authentication.gae.GaeUser;
 import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
@@ -69,8 +69,8 @@ public class BaseServlet extends HttpServlet implements ParameterNames, MimeType
     /**
      * Login and make sure you then have a new session.  This helps prevent session fixation attacks.
      *
-     * @param token
-     * @param subject
+     * @param token the authentication token
+     * @param subject who is the subject
      */
     protected static void loginWithNewSession(AuthenticationToken token, Subject subject) {
         Session originalSession = subject.getSession();

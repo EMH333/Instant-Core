@@ -19,12 +19,12 @@
 //
 
 
-package com.ethohampton.instant.Authentication.web.user;
+package com.ethohampton.instant.web.user;
 
 
 import com.ethohampton.instant.Authentication.gae.GaeUser;
 import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
-import com.ethohampton.instant.Authentication.web.BaseServlet;
+import com.ethohampton.instant.web.BaseServlet;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
 import com.google.appengine.repackaged.org.codehaus.jackson.map.ObjectMapper;
@@ -37,6 +37,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -89,7 +90,7 @@ public class UserListServlet extends BaseServlet {
         List<GaeUser> users = users(session, dao, sSearch, start, length);
         map.put("data", users);
         ObjectMapper mapper = new ObjectMapper();
-        mapper.setDateFormat(new SimpleDateFormat("MMM dd yyyy"));
+        mapper.setDateFormat(new SimpleDateFormat("MMM dd yyyy", Locale.US));
         String output = mapper.writeValueAsString(map);
         issue(MIME_APPLICATION_JSON, HTTP_STATUS_OK, output, response); // This is JSON
     }

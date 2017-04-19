@@ -18,7 +18,7 @@
 //
 
 
-package com.ethohampton.instant.Authentication.web.oauth;
+package com.ethohampton.instant.web.oauth;
 
 
 import com.ethohampton.instant.Authentication.gae.GaeUser;
@@ -29,7 +29,7 @@ import com.ethohampton.instant.Authentication.oauth.OAuthInfo;
 import com.ethohampton.instant.Authentication.oauth.provider.FacebookAuth;
 import com.ethohampton.instant.Authentication.oauth.provider.GoogleAuth;
 import com.ethohampton.instant.Authentication.oauth.provider.IOAuthProviderInfo;
-import com.ethohampton.instant.Authentication.web.BaseServlet;
+import com.ethohampton.instant.web.BaseServlet;
 import com.google.common.collect.Sets;
 
 import org.apache.shiro.SecurityUtils;
@@ -131,7 +131,7 @@ public class OAuthLoginServlet extends BaseServlet {
                 GaeUserDAO dao = daoProvider.get();
                 GaeUser user = dao.findUser(email);
                 if (user == null) {
-                    user = new GaeUser(email, Sets.newHashSet("user"), Sets.<String>newHashSet());
+                    user = new GaeUser(email, Sets.newHashSet("user"), Sets.newHashSet());
                     user.register();
                     dao.saveUser(user, true);
                 }

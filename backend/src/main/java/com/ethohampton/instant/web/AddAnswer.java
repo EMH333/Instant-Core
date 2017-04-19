@@ -1,4 +1,4 @@
-package com.ethohampton.instant.Servlets;
+package com.ethohampton.instant.web;
 
 import com.ethohampton.instant.Database;
 import com.ethohampton.instant.Objects.BasicServlet;

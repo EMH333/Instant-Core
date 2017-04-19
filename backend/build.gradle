@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.google.appengine:gradle-appengine-plugin:1.9.49'
+        classpath 'com.google.appengine:gradle-appengine-plugin:1.9.51'
     }
 }
 
@@ -30,8 +30,8 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 
 dependencies {
-    compile 'com.google.appengine:gradle-appengine-plugin:1.9.49'
-    appengineSdk 'com.google.appengine:appengine-java-sdk:1.9.49'
+    compile 'com.google.appengine:gradle-appengine-plugin:1.9.51'
+    appengineSdk 'com.google.appengine:appengine-java-sdk:1.9.51'
     compile 'javax.servlet:servlet-api:2.5'
     compile 'com.google.appengine:appengine-endpoints:1.9.28'
     compile fileTree(include: ['*.jar'], dir: 'libs')

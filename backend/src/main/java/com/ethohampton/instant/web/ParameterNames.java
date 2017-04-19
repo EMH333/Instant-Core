@@ -18,7 +18,7 @@
 //
 
 
-package com.ethohampton.instant.Authentication.web;
+package com.ethohampton.instant.web;
 
 /**
  * These are the parameters used to post information from the

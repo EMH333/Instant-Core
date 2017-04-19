@@ -18,7 +18,7 @@
 //
 
 
-package com.ethohampton.instant.Authentication.web.oauth;
+package com.ethohampton.instant.web.oauth;
 
 
 import com.ethohampton.instant.Authentication.oauth.provider.FacebookAuth;
@@ -102,7 +102,7 @@ public class WebUtil {
                 return null;
             } else {
                 String s = new String(response.getContent(), Charsets.UTF_8);
-                return (s == null) ? "Unknown error with code " + response.getResponseCode() : s;
+                return (s.length() == 0) ? "Unknown error with code " + response.getResponseCode() : s;
             }
         } catch (IOException e) {
             return e.getMessage();

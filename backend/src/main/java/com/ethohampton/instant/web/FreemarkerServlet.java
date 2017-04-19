@@ -18,7 +18,7 @@
 //
 
 
-package com.ethohampton.instant.Authentication.web;
+package com.ethohampton.instant.web;
 
 import com.ethohampton.instant.Authentication.gae.GaeUser;
 import com.ethohampton.instant.Authentication.gae.GaeUserDAO;

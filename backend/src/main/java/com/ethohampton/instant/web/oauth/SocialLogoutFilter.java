@@ -17,7 +17,7 @@
 // effectively secure at all times.
 //
 
-package com.ethohampton.instant.Authentication.web.oauth;
+package com.ethohampton.instant.web.oauth;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.SessionException;

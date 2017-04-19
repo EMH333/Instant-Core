@@ -19,11 +19,11 @@
 //
 
 
-package com.ethohampton.instant.Authentication.web.user;
+package com.ethohampton.instant.web.user;
 
 import com.ethohampton.instant.Authentication.gae.GaeUser;
 import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
-import com.ethohampton.instant.Authentication.web.BaseServlet;
+import com.ethohampton.instant.web.BaseServlet;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
 import com.googlecode.objectify.VoidWork;

@@ -2,7 +2,7 @@
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
     <servlet>
         <servlet-name>GetQuestion</servlet-name>
-        <servlet-class>com.ethohampton.instant.Servlets.GetQuestion</servlet-class>
+        <servlet-class>com.ethohampton.instant.web.GetQuestion</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetQuestion</servlet-name>
@@ -11,7 +11,7 @@
 
     <servlet>
         <servlet-name>AddAnswer</servlet-name>
-        <servlet-class>com.ethohampton.instant.Servlets.AddAnswer</servlet-class>
+        <servlet-class>com.ethohampton.instant.web.AddAnswer</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddAnswer</servlet-name>
@@ -20,7 +20,7 @@
 
     <servlet>
         <servlet-name>PutQuestion</servlet-name>
-        <servlet-class>com.ethohampton.instant.Servlets.PutQuestion</servlet-class>
+        <servlet-class>com.ethohampton.instant.web.PutQuestion</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PutQuestion</servlet-name>
@@ -29,7 +29,7 @@
 
     <servlet>
         <servlet-name>RandomQuestion</servlet-name>
-        <servlet-class>com.ethohampton.instant.Servlets.RandomQuestion</servlet-class>
+        <servlet-class>com.ethohampton.instant.web.RandomQuestion</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RandomQuestion</servlet-name>
