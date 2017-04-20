@@ -76,6 +76,7 @@ public class DatastoreRealm extends AuthorizingRealm {
 
 
         if (user == null || userIsNotQualified(user)) {
+            assert user != null;
             LOG.info("Rejecting " + user.getName());
             return null;
         }
