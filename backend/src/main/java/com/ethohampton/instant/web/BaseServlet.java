@@ -21,9 +21,9 @@
 
 package com.ethohampton.instant.web;
 
-import com.ethohampton.instant.Authentication.gae.GaeUser;
-import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
-import com.ethohampton.instant.Authentication.util.MimeTypes;
+import com.ethohampton.instant.Authentication.gae.User;
+import com.ethohampton.instant.Authentication.gae.UserDAO;
+import com.ethohampton.instant.Util.MimeTypes;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 
@@ -60,9 +60,9 @@ public class BaseServlet extends HttpServlet implements ParameterNames, MimeType
     protected final int HTTP_STATUS_NOT_FOUND = 404;
     protected final int HTTP_STATUS_FORBIDDEN = 403;
     protected final int HTTP_STATUS_INTERNAL_SERVER_ERROR = 500;
-    protected Provider<GaeUserDAO> daoProvider;
+    protected Provider<UserDAO> daoProvider;
 
-    protected BaseServlet(Provider<GaeUserDAO> daoProvider) {
+    protected BaseServlet(Provider<UserDAO> daoProvider) {
         this.daoProvider = daoProvider;
     }
 
@@ -165,13 +165,13 @@ public class BaseServlet extends HttpServlet implements ParameterNames, MimeType
     }
 
     @SuppressWarnings({"unchecked"})
-    protected GaeUser getCurrentGaeUser() {
+    protected User getCurrentGaeUser() {
         Subject subject = SecurityUtils.getSubject();
         String email = (String) subject.getPrincipal();
         if (email == null) {
             return null;
         } else {
-            GaeUserDAO dao = daoProvider.get();
+            UserDAO dao = daoProvider.get();
             return dao.findUser(email);
         }
     }

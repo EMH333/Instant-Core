@@ -20,8 +20,8 @@
 
 package com.ethohampton.instant.web.user.dev;
 
-import com.ethohampton.instant.Authentication.gae.GaeUser;
-import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
+import com.ethohampton.instant.Authentication.gae.User;
+import com.ethohampton.instant.Authentication.gae.UserDAO;
 import com.ethohampton.instant.web.BaseServlet;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
@@ -47,7 +47,7 @@ public class AddUsersServlet extends BaseServlet {
     private static final String DEFAULT_DOMAIN = "dummy.com";
 
     @Inject
-    public AddUsersServlet(Provider<GaeUserDAO> daoProvider) {
+    public AddUsersServlet(Provider<UserDAO> daoProvider) {
         super(daoProvider);
     }
 
@@ -56,12 +56,12 @@ public class AddUsersServlet extends BaseServlet {
         int count = intParameter("count", request, DEFAULT_COUNT);
         String domain = stringParameter("domain", request, DEFAULT_DOMAIN);
 
-        GaeUserDAO dao = daoProvider.get();
+        UserDAO dao = daoProvider.get();
         for (int i = 0; i < count; i++) {
             String nm = "user_" + i + "@" + domain;
-            GaeUser user = dao.get(nm);
+            User user = dao.get(nm);
             if (user == null) {
-                user = new GaeUser(nm, "friend", ImmutableSet.of("user"), Sets.newHashSet());
+                user = new User(nm, "friend", ImmutableSet.of("user"), Sets.newHashSet());
                 user.register();
                 dao.saveUser(user, true);
             }

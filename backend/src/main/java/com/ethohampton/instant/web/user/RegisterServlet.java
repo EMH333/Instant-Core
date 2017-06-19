@@ -22,8 +22,8 @@
 package com.ethohampton.instant.web.user;
 
 
-import com.ethohampton.instant.Authentication.gae.GaeUser;
-import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
+import com.ethohampton.instant.Authentication.gae.User;
+import com.ethohampton.instant.Authentication.gae.UserDAO;
 import com.ethohampton.instant.web.BaseServlet;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
@@ -54,7 +54,7 @@ public class RegisterServlet extends BaseServlet {
     private final String userBaseUrl;
 
     @Inject
-    RegisterServlet(Provider<GaeUserDAO> daoProvider, @Named("userBaseUrl") String userBaseUrl) {
+    RegisterServlet(Provider<UserDAO> daoProvider, @Named("userBaseUrl") String userBaseUrl) {
         super(daoProvider);
         this.userBaseUrl = userBaseUrl;
     }
@@ -67,12 +67,12 @@ public class RegisterServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            GaeUserDAO dao = new GaeUserDAO();
+            UserDAO dao = new UserDAO();
 
             String userName = WebUtils.getCleanParam(request, USERNAME);
             boolean isForgot = Boolean.parseBoolean(WebUtils.getCleanParam(request, FORGOT));
 
-            GaeUser user = dao.findUser(userName);
+            User user = dao.findUser(userName);
             if (!isForgot && user != null && user.isRegistered()) {
                 // You can't add a user who's already registered
                 issueJson(response, HTTP_STATUS_FORBIDDEN,

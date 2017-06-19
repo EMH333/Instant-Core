@@ -48,8 +48,8 @@ import java.util.logging.Logger;
 @Cache
 @Entity
 //@JsonInclude(JsonInclude.Include.NON_NULL)
-public class GaeUser implements Serializable {
-    static final Logger LOG = Logger.getLogger(GaeUser.class.getName());
+public class User implements Serializable {
+    static final Logger LOG = Logger.getLogger(User.class.getName());
 
     static final int HASH_ITERATIONS = 1;
     static final String HASH_ALGORITHM = Sha256Hash.ALGORITHM_NAME;
@@ -79,29 +79,29 @@ public class GaeUser implements Serializable {
     /**
      * For objectify to create instances on retrieval
      */
-    private GaeUser() {
+    private User() {
         this.roles = new HashSet<String>();
         this.permissions = new HashSet<String>();
     }
 
-    GaeUser(String name) {
+    User(String name) {
         this(name, null, new HashSet<String>(), new HashSet<String>());
     }
 
 
-    GaeUser(String name, String password) {
+    User(String name, String password) {
         this(name, password, new HashSet<String>(), new HashSet<String>());
     }
 
-    public GaeUser(String name, Set<String> roles, Set<String> permissions) {
+    public User(String name, Set<String> roles, Set<String> permissions) {
         this(name, null, roles, permissions);
     }
 
-    public GaeUser(String name, String password, Set<String> roles, Set<String> permissions) {
+    public User(String name, String password, Set<String> roles, Set<String> permissions) {
         this(name, password, roles, permissions, false);
     }
 
-    GaeUser(String name, String password, Set<String> roles, Set<String> permissions, boolean isRegistered) {
+    User(String name, String password, Set<String> roles, Set<String> permissions, boolean isRegistered) {
         Preconditions.checkNotNull(name, "User name (email) can't be null");
         Preconditions.checkNotNull(roles, "User roles can't be null");
         Preconditions.checkNotNull(permissions, "User permissions can't be null");
@@ -174,8 +174,8 @@ public class GaeUser implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof GaeUser) {
-            GaeUser u = (GaeUser) o;
+        if (o instanceof User) {
+            User u = (User) o;
             return Objects.equal(getName(), u.getName()) &&
                     Objects.equal(getPasswordHash(), u.getPasswordHash());
         } else {

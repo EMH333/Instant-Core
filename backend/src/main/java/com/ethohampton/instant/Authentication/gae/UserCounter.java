@@ -38,10 +38,10 @@ import java.util.logging.Logger;
  */
 @Cache
 @Entity
-class GaeUserCounter {
-    static final Logger LOG = Logger.getLogger(GaeUserCounter.class.getName());
+class UserCounter {
+    static final Logger LOG = Logger.getLogger(UserCounter.class.getName());
 
-    static final String COUNTER_ID = "counterID";
+    static final String COUNTER_ID = "UserCounterEntity";
 
     @Id
     private String id;
@@ -50,11 +50,11 @@ class GaeUserCounter {
 
     private Date lastModified;
 
-    private GaeUserCounter() {
+    private UserCounter() {
         this(COUNTER_ID);
     }
 
-    GaeUserCounter(String id) {
+    UserCounter(String id) {
         this.id = id;
         lastModified = new Date(0L);
     }

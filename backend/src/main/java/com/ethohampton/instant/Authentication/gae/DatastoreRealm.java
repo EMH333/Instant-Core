@@ -48,18 +48,18 @@ public class DatastoreRealm extends AuthorizingRealm {
     }
 
     private static CredentialsMatcher theCredentials() {
-        HashedCredentialsMatcher credentials = new HashedCredentialsMatcher(GaeUser.HASH_ALGORITHM);
-        credentials.setHashIterations(GaeUser.HASH_ITERATIONS);
+        HashedCredentialsMatcher credentials = new HashedCredentialsMatcher(User.HASH_ALGORITHM);
+        credentials.setHashIterations(User.HASH_ITERATIONS);
         credentials.setStoredCredentialsHexEncoded(true);
         return credentials;
     }
 
-    private static boolean userIsNotQualified(GaeUser user) {
+    private static boolean userIsNotQualified(User user) {
         return !user.isRegistered() || user.isSuspended();
     }
 
-    private GaeUserDAO dao() {
-        return new GaeUserDAO();
+    private UserDAO dao() {
+        return new UserDAO();
     }
 
     @Override
@@ -72,7 +72,7 @@ public class DatastoreRealm extends AuthorizingRealm {
         Preconditions.checkNotNull(userName, "User name can't be null");
 
         LOG.info("Finding authentication info for " + userName + " in DB");
-        GaeUser user = dao().findUser(userName);
+        User user = dao().findUser(userName);
 
 
         if (user == null || userIsNotQualified(user)) {
@@ -97,7 +97,7 @@ public class DatastoreRealm extends AuthorizingRealm {
             throw new NullPointerException("Can't find a principal in the collection");
         }
         LOG.fine("Finding authorization info for " + userName + " in DB");
-        GaeUser user = dao().findUser(userName);
+        User user = dao().findUser(userName);
         if (user == null || userIsNotQualified(user)) {
             return null;
         }

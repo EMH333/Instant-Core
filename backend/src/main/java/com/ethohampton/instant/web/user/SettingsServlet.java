@@ -22,8 +22,8 @@
 package com.ethohampton.instant.web.user;
 
 
-import com.ethohampton.instant.Authentication.gae.GaeUser;
-import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
+import com.ethohampton.instant.Authentication.gae.User;
+import com.ethohampton.instant.Authentication.gae.UserDAO;
 import com.ethohampton.instant.web.BaseServlet;
 
 import org.apache.shiro.SecurityUtils;
@@ -44,20 +44,20 @@ public class SettingsServlet extends BaseServlet {
     static final Logger LOG = Logger.getLogger(SettingsServlet.class.getName());
 
     @Inject
-    SettingsServlet(Provider<GaeUserDAO> daoProvider) {
+    SettingsServlet(Provider<UserDAO> daoProvider) {
         super(daoProvider);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            GaeUserDAO dao = new GaeUserDAO();
+            UserDAO dao = new UserDAO();
             String userName = request.getParameter(USERNAME);
             String password = request.getParameter(PASSWORD);
 
             Subject subject = SecurityUtils.getSubject();
             String subjectID = (String) subject.getPrincipal();
-            GaeUser user = dao.findUser(subjectID);
+            User user = dao.findUser(subjectID);
             if (subject.isAuthenticated() && user != null) {
                 if (userName.equals(subjectID)) {
                     if (password != null) {

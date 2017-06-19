@@ -21,8 +21,8 @@
 
 package com.ethohampton.instant.web.user;
 
-import com.ethohampton.instant.Authentication.gae.GaeUser;
-import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
+import com.ethohampton.instant.Authentication.gae.User;
+import com.ethohampton.instant.Authentication.gae.UserDAO;
 import com.ethohampton.instant.web.BaseServlet;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Sets;
@@ -55,7 +55,7 @@ public class ConfirmServlet extends BaseServlet {
     static final Logger LOG = Logger.getLogger(ConfirmServlet.class.getName());
 
     @Inject
-    ConfirmServlet(Provider<GaeUserDAO> daoProvider) {
+    ConfirmServlet(Provider<UserDAO> daoProvider) {
         super(daoProvider);
     }
 
@@ -68,16 +68,16 @@ public class ConfirmServlet extends BaseServlet {
 
             boolean isChange = "true".equals(request.getParameter(FORGOT));
 
-            final GaeUserDAO dao = new GaeUserDAO();
+            final UserDAO dao = new UserDAO();
             String userNameFromCode = dao.findUserNameFromValidCode(code);
             if (userNameFromCode != null) {
 
                 // there are two objects, from two different groups, which can nowadays be run in a transaction
                 ofy().transact(new VoidWork() {
                     public void vrun() {
-                        GaeUser user = dao.findUser(userName);
+                        User user = dao.findUser(userName);
                         if (user == null) {
-                            user = new GaeUser(userName, password, defaultRoles(), defaultPermissions());
+                            user = new User(userName, password, defaultRoles(), defaultPermissions());
                             dao.saveUser(user, true);
                         } else {
                             user.setPassword(password);

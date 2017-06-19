@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
+
     <servlet>
         <servlet-name>GetQuestion</servlet-name>
         <servlet-class>com.ethohampton.instant.web.GetQuestion</servlet-class>
@@ -43,13 +44,13 @@
 
     <context-param>
         <param-name>user-base-url</param-name>
-        <param-value>/user/admin</param-value>
+        <param-value>/user<!--/admin--></param-value>
     </context-param>
 
     <context-param>
         <param-name>static-base-url</param-name>
         <!--
-        <param-value>http://static.gaeshiro.appspot.com/</param-value>
+                    <param-value>http://static.gaeshiro.appspot.com/</param-value>
         -->
         <param-value></param-value>
     </context-param>

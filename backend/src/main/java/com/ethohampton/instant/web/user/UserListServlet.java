@@ -22,8 +22,8 @@
 package com.ethohampton.instant.web.user;
 
 
-import com.ethohampton.instant.Authentication.gae.GaeUser;
-import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
+import com.ethohampton.instant.Authentication.gae.User;
+import com.ethohampton.instant.Authentication.gae.UserDAO;
 import com.ethohampton.instant.web.BaseServlet;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;
@@ -58,7 +58,7 @@ public class UserListServlet extends BaseServlet {
     private static final int MAX_QUERY_OFFSET = 50;
 
     @Inject
-    UserListServlet(Provider<GaeUserDAO> daoProvider) {
+    UserListServlet(Provider<UserDAO> daoProvider) {
         super(daoProvider);
     }
 
@@ -80,14 +80,14 @@ public class UserListServlet extends BaseServlet {
 
     private void doOutput(HttpSession session, HttpServletResponse response, String sSearch, int start, int length, int draw)
             throws JSONException, IOException {
-        GaeUserDAO dao = new GaeUserDAO();
+        UserDAO dao = new UserDAO();
         long nUsers = dao.getCount();
         Map<String, Object> map = Maps.newHashMap();
         map.put("recordsTotal", nUsers);
         map.put("recordsFiltered", nUsers);
         map.put("draw", draw);
 
-        List<GaeUser> users = users(session, dao, sSearch, start, length);
+        List<User> users = users(session, dao, sSearch, start, length);
         map.put("data", users);
         ObjectMapper mapper = new ObjectMapper();
         mapper.setDateFormat(new SimpleDateFormat("MMM dd yyyy", Locale.US));
@@ -95,35 +95,35 @@ public class UserListServlet extends BaseServlet {
         issue(MIME_APPLICATION_JSON, HTTP_STATUS_OK, output, response); // This is JSON
     }
 
-    private List<GaeUser> users(HttpSession session, GaeUserDAO dao, String sSearch, int start, int length) {
+    private List<User> users(HttpSession session, UserDAO dao, String sSearch, int start, int length) {
         if (sSearch != null && !"".equals(sSearch)) {
-            GaeUser user = dao.findUser(sSearch);
-            List<GaeUser> list = Lists.newArrayList();
+            User user = dao.findUser(sSearch);
+            List<User> list = Lists.newArrayList();
             if (user != null) {
                 list.add(user);
             }
             return list;
         } else {
-            List<GaeUser> list = Lists.newArrayList();
+            List<User> list = Lists.newArrayList();
 
             Cursor cursor = (Cursor) session.getAttribute("cursor_" + start);
             if (cursor == null && start >= MAX_QUERY_OFFSET) {
                 // Doing a query with an offset is very expensive as you have to read through
-                // everything up to the offset.  So we just bail out if that it the case. The font
+                // everything up to the offset.  So we just bail out if that it the case. The front
                 // end should display an error of some sort.
                 LOG.warning("Can't process query for offset " + start + " as its too expensive");
                 return list;
             }
 
-            Query<GaeUser> query = ofy().load().type(GaeUser.class)
+            Query<User> query = ofy().load().type(User.class)
                     .limit(length)
                     .order("-dateRegistered");
 
             query = (cursor != null) ? query.startAt(cursor) : query.offset(start);
 
-            QueryResultIterator<GaeUser> it = query.iterator();
+            QueryResultIterator<User> it = query.iterator();
             while (it.hasNext()) {
-                GaeUser user = it.next();
+                User user = it.next();
                 list.add(user);
             }
 

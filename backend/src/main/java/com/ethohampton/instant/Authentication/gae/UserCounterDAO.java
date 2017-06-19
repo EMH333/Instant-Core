@@ -24,10 +24,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class GaeUserCounterDAO extends BaseDAO<GaeUserCounter> {
-    static final Logger LOG = LoggerFactory.getLogger(GaeUserCounterDAO.class);
+public class UserCounterDAO extends BaseDAO<UserCounter> {
+    static final Logger LOG = LoggerFactory.getLogger(UserCounterDAO.class);
 
-    public GaeUserCounterDAO() {
-        super(GaeUserCounter.class);
+    public UserCounterDAO() {
+        super(UserCounter.class);
     }
 }

@@ -21,9 +21,9 @@
 package com.ethohampton.instant.web.oauth;
 
 
-import com.ethohampton.instant.Authentication.gae.GaeUser;
-import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
+import com.ethohampton.instant.Authentication.gae.User;
 import com.ethohampton.instant.Authentication.gae.UserAuthType;
+import com.ethohampton.instant.Authentication.gae.UserDAO;
 import com.ethohampton.instant.Authentication.oauth.OAuthAuthenticationToken;
 import com.ethohampton.instant.Authentication.oauth.OAuthInfo;
 import com.ethohampton.instant.Authentication.oauth.provider.FacebookAuth;
@@ -57,7 +57,7 @@ public class OAuthLoginServlet extends BaseServlet {
     private final String site;
 
     @Inject
-    public OAuthLoginServlet(@Named("social.site") String site, Provider<GaeUserDAO> daoProvider) {
+    public OAuthLoginServlet(@Named("social.site") String site, Provider<UserDAO> daoProvider) {
         super(daoProvider);
         this.site = site;
     }
@@ -128,10 +128,10 @@ public class OAuthLoginServlet extends BaseServlet {
                 issue("text/plain", 400, "Couldn't get " + info.getUserAuthType() + " permission: " + message, response);
             } else {
                 String email = info.getEmail();
-                GaeUserDAO dao = daoProvider.get();
-                GaeUser user = dao.findUser(email);
+                UserDAO dao = daoProvider.get();
+                User user = dao.findUser(email);
                 if (user == null) {
-                    user = new GaeUser(email, Sets.newHashSet("user"), Sets.newHashSet());
+                    user = new User(email, Sets.newHashSet("user"), Sets.newHashSet());
                     user.register();
                     dao.saveUser(user, true);
                 }
@@ -158,7 +158,7 @@ public class OAuthLoginServlet extends BaseServlet {
         Subject subject = SecurityUtils.getSubject();
         String principal = (String) subject.getPrincipal();
         if (principal != null) {
-            GaeUser user = daoProvider.get().findUser(principal);
+            User user = daoProvider.get().findUser(principal);
             return user != null;
         } else {
             return false;

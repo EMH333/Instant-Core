@@ -4,7 +4,7 @@
     <version>alpha-v1-1</version>
 
     <system-properties>
-        <property name="java.util.logging.config.file" value="WEB-INF/classes/logging.properties" />
+        <property name="java.util.logging.config.file" value="WEB-INF/logging.properties" />
     </system-properties>
 
     <threadsafe>true</threadsafe>

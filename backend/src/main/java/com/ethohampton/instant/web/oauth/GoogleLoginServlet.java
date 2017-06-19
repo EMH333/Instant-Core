@@ -20,11 +20,10 @@
 
 package com.ethohampton.instant.web.oauth;
 
-import com.ethohampton.instant.Authentication.gae.GaeUser;
-import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
+import com.ethohampton.instant.Authentication.gae.User;
+import com.ethohampton.instant.Authentication.gae.UserDAO;
 import com.ethohampton.instant.Authentication.googlegae.GoogleGAEAuthenticationToken;
 import com.ethohampton.instant.web.BaseServlet;
-import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.common.collect.Sets;
@@ -69,12 +68,12 @@ public class GoogleLoginServlet extends BaseServlet {
 
 
     @Inject
-    public GoogleLoginServlet(Provider<GaeUserDAO> daoProvider) {
+    public GoogleLoginServlet(Provider<UserDAO> daoProvider) {
         super(daoProvider);
     }
 
     private static void logoutGoogleIfLoggedIn(HttpServletRequest request, HttpServletResponse response, UserService service) throws IOException {
-        User user = service.getCurrentUser();
+        com.google.appengine.api.users.User user = service.getCurrentUser();
         if (user != null) {
             String redirectUrl = request.getRequestURL().toString();
             WebUtil.logoutGoogleService(request, response, redirectUrl);
@@ -100,7 +99,7 @@ public class GoogleLoginServlet extends BaseServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserService userService = UserServiceFactory.getUserService();
         try {
-            User currentUser = userService.getCurrentUser();
+            com.google.appengine.api.users.User currentUser = userService.getCurrentUser();
             if (currentUser == null) {
                 issue(MIME_TEXT_PLAIN, HTTP_STATUS_NOT_FOUND, "cannot login as we can't find Google user", response);
                 return;
@@ -108,10 +107,10 @@ public class GoogleLoginServlet extends BaseServlet {
             String username = currentUser.getEmail();
 
             // add the user to the database
-            GaeUserDAO dao = daoProvider.get();
-            GaeUser user = dao.findUser(username);
+            UserDAO dao = daoProvider.get();
+            User user = dao.findUser(username);
             if (user == null) {
-                user = new GaeUser(username, Sets.newHashSet("user"), Sets.newHashSet());
+                user = new User(username, Sets.newHashSet("user"), Sets.newHashSet());
                 user.register();
                 dao.saveUser(user, true);
             }

@@ -61,7 +61,7 @@ public class ServeLogic extends AbstractModule {
         //bind(AppstatsFilter.class).in(Scopes.SINGLETON);
         bind(AsyncCacheFilter.class).in(Scopes.SINGLETON);// needed to sync the datastore if its running async
         bindString("tim", "tim");
-        bindString("email.from", "admin@gaeshiro.appspotmail.com");
+        bindString("email.from", "admin@instant.appspotmail.com");
         bindString("userBaseUrl", userBaseUrl);
         bindString("staticBaseUrl", staticBaseUrl);
         bindString("social.site", isDevelopmentServer() ? "local" : "live");

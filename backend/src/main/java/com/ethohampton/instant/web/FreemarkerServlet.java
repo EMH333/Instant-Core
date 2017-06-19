@@ -20,8 +20,8 @@
 
 package com.ethohampton.instant.web;
 
-import com.ethohampton.instant.Authentication.gae.GaeUser;
-import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
+import com.ethohampton.instant.Authentication.gae.User;
+import com.ethohampton.instant.Authentication.gae.UserDAO;
 import com.google.common.collect.Maps;
 
 import java.io.IOException;
@@ -44,11 +44,11 @@ public class FreemarkerServlet extends BaseServlet {
     static final Logger LOG = Logger.getLogger(FreemarkerServlet.class.getName());
 
     @Inject
-    public FreemarkerServlet(Provider<GaeUserDAO> daoProvider) {
+    public FreemarkerServlet(Provider<UserDAO> daoProvider) {
         super(daoProvider);
     }
 
-    private static String userType(GaeUser user) {
+    private static String userType(User user) {
         String hash = user.getPasswordHash();
         return (hash == null) ? "SOCIAL" : "CILOGI";
     }
@@ -70,7 +70,7 @@ public class FreemarkerServlet extends BaseServlet {
 
     private Map<String, Object> mapping(HttpServletRequest request) {
         Map<String, Object> map = Maps.newHashMap();
-        GaeUser user = getCurrentGaeUser();
+        User user = getCurrentGaeUser();
         if (user != null) {
             map.put("userName", user.getName());
             map.put("userType", userType(user));

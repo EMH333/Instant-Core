@@ -22,7 +22,7 @@
 package com.ethohampton.instant.web.user;
 
 
-import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
+import com.ethohampton.instant.Authentication.gae.UserDAO;
 import com.ethohampton.instant.web.BaseServlet;
 
 import java.io.IOException;
@@ -43,7 +43,7 @@ public class LoginJSPServlet extends BaseServlet {
     static final Logger LOG = Logger.getLogger(LoginJSPServlet.class.getName());
 
     @Inject
-    LoginJSPServlet(Provider<GaeUserDAO> daoProvider) {
+    LoginJSPServlet(Provider<UserDAO> daoProvider) {
         super(daoProvider);
     }
 

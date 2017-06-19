@@ -22,7 +22,7 @@
 package com.ethohampton.instant.web;
 
 
-import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
+import com.ethohampton.instant.Authentication.gae.UserDAO;
 import com.ethohampton.instant.Authentication.service.SendEmail;
 
 import java.net.URI;
@@ -48,7 +48,7 @@ public class MailQueueServlet extends BaseServlet {
     private final SendEmail sendEmail;
 
     @Inject
-    MailQueueServlet(Provider<GaeUserDAO> daoProvider, SendEmail sendEmail) {
+    MailQueueServlet(Provider<UserDAO> daoProvider, SendEmail sendEmail) {
         super(daoProvider);
         this.sendEmail = sendEmail;
     }

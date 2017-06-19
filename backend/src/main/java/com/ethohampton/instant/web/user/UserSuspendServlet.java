@@ -22,8 +22,8 @@
 package com.ethohampton.instant.web.user;
 
 
-import com.ethohampton.instant.Authentication.gae.GaeUser;
-import com.ethohampton.instant.Authentication.gae.GaeUserDAO;
+import com.ethohampton.instant.Authentication.gae.User;
+import com.ethohampton.instant.Authentication.gae.UserDAO;
 import com.ethohampton.instant.web.BaseServlet;
 
 import org.slf4j.Logger;
@@ -44,7 +44,7 @@ public class UserSuspendServlet extends BaseServlet {
     static final Logger LOG = LoggerFactory.getLogger(UserSuspendServlet.class);
 
     @Inject
-    UserSuspendServlet(Provider<GaeUserDAO> daoProvider) {
+    UserSuspendServlet(Provider<UserDAO> daoProvider) {
         super(daoProvider);
     }
 
@@ -52,8 +52,8 @@ public class UserSuspendServlet extends BaseServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String userName = request.getParameter(USERNAME);
-            GaeUserDAO dao = daoProvider.get();
-            GaeUser user = dao.findUser(userName);
+            UserDAO dao = daoProvider.get();
+            User user = dao.findUser(userName);
             if (user != null) {
                 if (isCurrentUserAdmin()) {
                     user.setSuspended(true);

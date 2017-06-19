@@ -30,19 +30,19 @@ import java.util.logging.Logger;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
 
-public class GaeUserDAO extends BaseDAO<GaeUser> {
-    static final Logger LOG = Logger.getLogger(GaeUserDAO.class.getName());
+public class UserDAO extends BaseDAO<User> {
+    static final Logger LOG = Logger.getLogger(UserDAO.class.getName());
 
     private static final long REGISTRATION_VALID_DAYS = 1;
 
     static {
-        ObjectifyService.register(GaeUser.class);
-        ObjectifyService.register(GaeUserCounter.class);
+        ObjectifyService.register(User.class);
+        ObjectifyService.register(UserCounter.class);
         ObjectifyService.register(RegistrationString.class);
     }
 
-    public GaeUserDAO() {
-        super(GaeUser.class);
+    public UserDAO() {
+        super(User.class);
     }
 
     /**
@@ -52,9 +52,9 @@ public class GaeUserDAO extends BaseDAO<GaeUser> {
      * @param changeCount should the user count be incremented
      * @return the user, after changes
      */
-    public GaeUser saveUser(final GaeUser user, final boolean changeCount) {
-        return ofy().transact(new Work<GaeUser>() {
-            public GaeUser run() {
+    public User saveUser(final User user, final boolean changeCount) {
+        return ofy().transact(new Work<User>() {
+            public User run() {
                 put(user);
                 if (changeCount) {
                     changeCount(1L);
@@ -64,9 +64,9 @@ public class GaeUserDAO extends BaseDAO<GaeUser> {
         });
     }
 
-    public GaeUser deleteUser(final GaeUser user) {
-        return ofy().transact(new Work<GaeUser>() {
-            public GaeUser run() {
+    public User deleteUser(final User user) {
+        return ofy().transact(new Work<User>() {
+            public User run() {
                 delete(user.getName());
                 changeCount(-1L);
                 return user;
@@ -86,7 +86,7 @@ public class GaeUserDAO extends BaseDAO<GaeUser> {
         return (reg == null) ? null : (reg.isValid() ? reg.getUsername() : null);
     }
 
-    public GaeUser findUser(String userName) {
+    public User findUser(String userName) {
         return get(userName);
     }
 
@@ -103,7 +103,7 @@ public class GaeUserDAO extends BaseDAO<GaeUser> {
     public void register(final String code, final String userName) {
         ofy().transact(new VoidWork() {
             public void vrun() {
-                GaeUser user = get(userName);
+                User user = get(userName);
                 if (user != null) {
                     user.register();
                     saveUser(user, true);
@@ -118,8 +118,8 @@ public class GaeUserDAO extends BaseDAO<GaeUser> {
     }
 
     public long getCount() {
-        GaeUserCounterDAO dao = new GaeUserCounterDAO();
-        GaeUserCounter count = dao.get(GaeUserCounter.COUNTER_ID);
+        UserCounterDAO dao = new UserCounterDAO();
+        UserCounter count = dao.get(UserCounter.COUNTER_ID);
         return (count == null) ? 0 : count.getCount();
     }
 
@@ -129,10 +129,10 @@ public class GaeUserDAO extends BaseDAO<GaeUser> {
      * @param delta amount to change
      */
     private void changeCount(final long delta) {
-        GaeUserCounterDAO dao = new GaeUserCounterDAO();
-        GaeUserCounter count = dao.get(GaeUserCounter.COUNTER_ID);
+        UserCounterDAO dao = new UserCounterDAO();
+        UserCounter count = dao.get(UserCounter.COUNTER_ID);
         if (count == null) {
-            count = new GaeUserCounter(GaeUserCounter.COUNTER_ID);
+            count = new UserCounter(UserCounter.COUNTER_ID);
         }
         count.delta(delta);
         dao.put(count);

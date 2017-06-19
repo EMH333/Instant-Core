@@ -18,7 +18,7 @@
 //
 
 
-package com.ethohampton.instant.Authentication.util;
+package com.ethohampton.instant.Util;
 
 public interface MimeTypes {
     String MIME_TEXT_PLAIN = "text/plain";
