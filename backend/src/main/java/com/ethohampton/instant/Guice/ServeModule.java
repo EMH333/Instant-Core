@@ -90,7 +90,6 @@ public class ServeModule extends ServletModule {
         serve(userBaseUrl + "/delete").with(UserDeleteServlet.class);
         serve(userBaseUrl + "/settings").with(SettingsServlet.class);
 
-
         serve(userBaseUrl + "/random").with(RandomQuestion.class);
         serve(userBaseUrl + "/add").with(PutQuestion.class);
         serve(userBaseUrl + "/vote/*").with(AddAnswer.class);

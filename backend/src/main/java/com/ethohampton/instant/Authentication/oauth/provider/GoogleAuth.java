@@ -76,8 +76,7 @@ public class GoogleAuth extends AuthBase implements IOAuthProviderInfo {
     }
 
     public static String logoutUrl(String accessToken) throws IOException {
-        String logoutUrl = "https://accounts.google.com/o/oauth2/revoke?token=" + accessToken;
-        return logoutUrl;
+        return "https://accounts.google.com/o/oauth2/revoke?token=" + accessToken;
     }
 
     private static String fetch(URL url) {

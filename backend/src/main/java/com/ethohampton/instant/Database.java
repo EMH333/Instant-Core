@@ -1,7 +1,6 @@
 package com.ethohampton.instant;
 
 import com.ethohampton.instant.Objects.Question;
-import com.google.appengine.api.NamespaceManager;
 import com.googlecode.objectify.Key;
 import com.googlecode.objectify.LoadResult;
 import com.googlecode.objectify.Result;
@@ -17,8 +16,7 @@ import java.util.Set;
 public class Database {
 
     public static Long put(String author, Set<String> questions) {
-        NamespaceManager.set("Questions");
-        //puts all answer posibilitys into hashmap with number mapped values
+        //puts all answer possibilities into hashmap with number mapped values
         HashMap<String, String> options = new HashMap<>();
         int i = 0;
         for (String op : questions) {
@@ -33,7 +31,6 @@ public class Database {
 
     //saves question
     private static boolean put(Question question) {
-        NamespaceManager.set("Questions");
         OfyService.ofy().save().entity(question).now();
         return true;
     }
@@ -41,10 +38,9 @@ public class Database {
     /**
      * @param id     of the question
      * @param answer number of the question
-     * @return a question if succesfull, null if not
+     * @return a question if successful, null if not
      */
     public static Question addAnswer(Long id, int answer) {
-        NamespaceManager.set("Questions");
         Question question = get(id);
         String ans = String.valueOf(answer);
         if (question != null) {
@@ -73,7 +69,6 @@ public class Database {
     }
 
     public static Question get(Long id) {
-        NamespaceManager.set("Questions");
         LoadResult<Question> loadResult = OfyService.ofy().load().type(Question.class).id(id);
         return loadResult.now();
     }

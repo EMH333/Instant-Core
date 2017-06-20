@@ -60,8 +60,7 @@ public class MailQueueServlet extends BaseServlet {
                     "code=" + code + "&username=" + userName + "&forgot=true", null)
                     : new URI(request.getScheme(), request.getServerName(), "/registerByEmail.ftl",
                     "code=" + code + "&username=" + userName, null);
-            String s = url.toString();
-            return s;
+            return url.toString();
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }

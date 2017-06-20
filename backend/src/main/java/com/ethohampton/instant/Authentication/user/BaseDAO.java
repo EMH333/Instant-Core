@@ -40,8 +40,7 @@ public class BaseDAO<T> {
         if (id == null || "".equals(id)) {
             return null;
         }
-        T db = (T) ofy().load().key(Key.create(clazz, id)).now();
-        return db;
+        return (T) ofy().load().key(Key.create(clazz, id)).now();
     }
 
     public void put(T object) {
