@@ -1,7 +1,7 @@
 package com.ethohampton.instant.web;
 
+import com.ethohampton.instant.Authentication.userManagment.UserDAO;
 import com.ethohampton.instant.Database;
-import com.ethohampton.instant.Objects.BasicServlet;
 import com.ethohampton.instant.Objects.Question;
 import com.ethohampton.instant.OfyService;
 import com.ethohampton.instant.Util.QuestionUtils;
@@ -10,7 +10,11 @@ import com.googlecode.objectify.Key;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Logger;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
+import javax.inject.Singleton;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,10 +23,13 @@ import javax.servlet.http.HttpServletResponse;
  * <p>
  * gets a random question
  */
+@Singleton
+public class RandomQuestion extends BaseServlet {
+    static final Logger LOG = Logger.getLogger(RandomQuestion.class.getName());
 
-public class RandomQuestion extends BasicServlet {
-    public RandomQuestion() {
-        super();
+    @Inject
+    RandomQuestion(Provider<UserDAO> daoProvider) {
+        super(daoProvider);
     }
 
     @Override

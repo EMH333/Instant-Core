@@ -7,6 +7,7 @@ import com.ethohampton.instant.Util.QuestionUtils;
 
 import java.io.IOException;
 
+import javax.inject.Singleton;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * <p>
  * adds vote for one answer
  */
-
+@Singleton
 public class AddAnswer extends BasicServlet {
     public AddAnswer() {
         super();

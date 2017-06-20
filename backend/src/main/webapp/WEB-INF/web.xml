@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
-
     <servlet>
         <servlet-name>GetQuestion</servlet-name>
-        <servlet-class>com.ethohampton.instant.web.GetQuestion</servlet-class>
+        <servlet-class>com.ethohampton.instant.Servlets.GetQuestion</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>GetQuestion</servlet-name>
@@ -12,7 +11,7 @@
 
     <servlet>
         <servlet-name>AddAnswer</servlet-name>
-        <servlet-class>com.ethohampton.instant.web.AddAnswer</servlet-class>
+        <servlet-class>com.ethohampton.instant.Servlets.AddAnswer</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AddAnswer</servlet-name>
@@ -21,7 +20,7 @@
 
     <servlet>
         <servlet-name>PutQuestion</servlet-name>
-        <servlet-class>com.ethohampton.instant.web.PutQuestion</servlet-class>
+        <servlet-class>com.ethohampton.instant.Servlets.PutQuestion</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PutQuestion</servlet-name>
@@ -30,7 +29,7 @@
 
     <servlet>
         <servlet-name>RandomQuestion</servlet-name>
-        <servlet-class>com.ethohampton.instant.web.RandomQuestion</servlet-class>
+        <servlet-class>com.ethohampton.instant.Servlets.RandomQuestion</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>RandomQuestion</servlet-name>
@@ -42,43 +41,7 @@
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
-    <context-param>
-        <param-name>user-base-url</param-name>
-        <param-value>/user<!--/admin--></param-value>
-    </context-param>
 
-    <context-param>
-        <param-name>static-base-url</param-name>
-        <!--
-                    <param-value>http://static.gaeshiro.appspot.com/</param-value>
-        -->
-        <param-value></param-value>
-    </context-param>
-
-
-    <filter>
-        <filter-name>guiceFilter</filter-name>
-        <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>guiceFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>INCLUDE</dispatcher>
-    </filter-mapping>
-
-    <listener>
-        <listener-class>com.ethohampton.instant.Authentication.guice.ServeContextListener
-        </listener-class>
-    </listener>
-
-    <mime-mapping>
-        <extension>manifest</extension>
-        <mime-type>text/cache-manifest</mime-type>
-    </mime-mapping>
-    <!-- test -->
     <filter>
         <filter-name>ShiroFilter</filter-name>
         <filter-class>org.apache.shiro.web.servlet.ShiroFilter</filter-class>
