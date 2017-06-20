@@ -2,10 +2,13 @@
   <dictionary name="ethohampton">
     <words>
       <w>appengine</w>
+      <w>cilogi</w>
       <w>datastore</w>
       <w>ethohampton</w>
       <w>github</w>
       <w>memcache</w>
+      <w>niblett</w>
+      <w>reauthenticate</w>
       <w>shiro</w>
       <w>webapp</w>
     </words>
