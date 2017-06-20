@@ -85,7 +85,6 @@
     </listener>
 
 
-    
     <filter>
         <filter-name>guiceFilter</filter-name>
         <filter-class>com.google.inject.servlet.GuiceFilter</filter-class>
@@ -108,7 +107,6 @@
         <extension>manifest</extension>
         <mime-type>text/cache-manifest</mime-type>
     </mime-mapping>
-
 
 
 </web-app>
