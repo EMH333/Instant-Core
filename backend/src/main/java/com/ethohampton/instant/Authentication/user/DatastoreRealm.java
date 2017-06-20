@@ -17,7 +17,7 @@
 // effectively secure at all times.
 //
 
-package com.ethohampton.instant.Authentication.userManagment;
+package com.ethohampton.instant.Authentication.user;
 
 import com.google.common.base.Preconditions;
 

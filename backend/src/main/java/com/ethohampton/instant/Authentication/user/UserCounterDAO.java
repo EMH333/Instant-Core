@@ -1,10 +1,10 @@
-// Copyright (c) 2012 Tim Niblett. All Rights Reserved.
+// Copyright (c) 2013 Cilogi. All Rights Reserved.
 //
-// File:        UserAuthType.java  (05-Oct-2012)
+// File:        GaeUserCounterDAO.java  (09/07/13)
 // Author:      tim
 //
 // Copyright in the whole and every part of this source file belongs to
-// Tim Niblett (the Author) and may not be used, sold, licenced, 
+// Cilogi (the Author) and may not be used, sold, licenced, 
 // transferred, copied or reproduced in whole or in part in 
 // any manner or form or in or on any media to any person other than 
 // in accordance with the terms of The Author's agreement
@@ -18,8 +18,16 @@
 //
 
 
-package com.ethohampton.instant.Authentication.gae;
+package com.ethohampton.instant.Authentication.user;
 
-public enum UserAuthType {
-    CILOGI, GOOGLE, FACEBOOK
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+public class UserCounterDAO extends BaseDAO<UserCounter> {
+    static final Logger LOG = LoggerFactory.getLogger(UserCounterDAO.class);
+
+    public UserCounterDAO() {
+        super(UserCounter.class);
+    }
 }

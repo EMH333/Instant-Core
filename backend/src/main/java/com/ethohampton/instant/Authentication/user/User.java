@@ -19,7 +19,7 @@
 //
 
 
-package com.ethohampton.instant.Authentication.gae;
+package com.ethohampton.instant.Authentication.user;
 
 //import com.fasterxml.jackson.annotation.JsonIgnore;
 //import com.fasterxml.jackson.core.JsonProcessingException;

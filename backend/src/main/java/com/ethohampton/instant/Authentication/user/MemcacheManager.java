@@ -1,4 +1,4 @@
-package com.ethohampton.instant.Authentication.userManagment;
+package com.ethohampton.instant.Authentication.user;
 
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheException;

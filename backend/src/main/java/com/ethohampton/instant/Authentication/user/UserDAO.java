@@ -19,7 +19,7 @@
 //
 
 
-package com.ethohampton.instant.Authentication.userManagment;
+package com.ethohampton.instant.Authentication.user;
 
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.VoidWork;

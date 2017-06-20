@@ -1,6 +1,7 @@
 package com.ethohampton.instant.Objects;
 
-import com.ethohampton.instant.Authentication.userManagment.BaseDAO;
+
+import com.ethohampton.instant.Authentication.user.BaseDAO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

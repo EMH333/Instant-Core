@@ -1,4 +1,4 @@
-package com.ethohampton.instant.Authentication.gae;
+package com.ethohampton.instant.Authentication.user;
 
 import com.google.appengine.api.memcache.AsyncMemcacheService;
 import com.google.appengine.api.memcache.Expiration;

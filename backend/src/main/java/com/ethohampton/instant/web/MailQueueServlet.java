@@ -22,8 +22,8 @@
 package com.ethohampton.instant.web;
 
 
-import com.ethohampton.instant.Authentication.gae.UserDAO;
 import com.ethohampton.instant.Authentication.service.SendEmail;
+import com.ethohampton.instant.Authentication.user.UserDAO;
 
 import java.net.URI;
 import java.net.URISyntaxException;

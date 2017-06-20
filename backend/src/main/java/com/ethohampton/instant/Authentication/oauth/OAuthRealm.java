@@ -21,7 +21,7 @@
 package com.ethohampton.instant.Authentication.oauth;
 
 
-import com.ethohampton.instant.Authentication.gae.MemcacheManager;
+import com.ethohampton.instant.Authentication.user.MemcacheManager;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;

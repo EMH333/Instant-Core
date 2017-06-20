@@ -21,14 +21,14 @@
 package com.ethohampton.instant.web.oauth;
 
 
-import com.ethohampton.instant.Authentication.gae.User;
-import com.ethohampton.instant.Authentication.gae.UserAuthType;
-import com.ethohampton.instant.Authentication.gae.UserDAO;
 import com.ethohampton.instant.Authentication.oauth.OAuthAuthenticationToken;
 import com.ethohampton.instant.Authentication.oauth.OAuthInfo;
 import com.ethohampton.instant.Authentication.oauth.provider.FacebookAuth;
 import com.ethohampton.instant.Authentication.oauth.provider.GoogleAuth;
 import com.ethohampton.instant.Authentication.oauth.provider.IOAuthProviderInfo;
+import com.ethohampton.instant.Authentication.user.User;
+import com.ethohampton.instant.Authentication.user.UserAuthType;
+import com.ethohampton.instant.Authentication.user.UserDAO;
 import com.ethohampton.instant.web.BaseServlet;
 import com.google.common.collect.Sets;
 

@@ -1,6 +1,6 @@
 package com.ethohampton.instant.web;
 
-import com.ethohampton.instant.Authentication.userManagment.UserDAO;
+import com.ethohampton.instant.Authentication.user.UserDAO;
 import com.ethohampton.instant.Database;
 import com.ethohampton.instant.Objects.Question;
 import com.ethohampton.instant.OfyService;

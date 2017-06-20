@@ -18,7 +18,7 @@
 //
 
 
-package com.ethohampton.instant.Authentication.userManagment;
+package com.ethohampton.instant.Authentication.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

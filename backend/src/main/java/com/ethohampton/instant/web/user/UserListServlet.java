@@ -22,8 +22,8 @@
 package com.ethohampton.instant.web.user;
 
 
-import com.ethohampton.instant.Authentication.gae.User;
-import com.ethohampton.instant.Authentication.gae.UserDAO;
+import com.ethohampton.instant.Authentication.user.User;
+import com.ethohampton.instant.Authentication.user.UserDAO;
 import com.ethohampton.instant.web.BaseServlet;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.QueryResultIterator;

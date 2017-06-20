@@ -21,7 +21,7 @@
 package com.ethohampton.instant.Authentication.oauth;
 
 
-import com.ethohampton.instant.Authentication.gae.UserAuthType;
+import com.ethohampton.instant.Authentication.user.UserAuthType;
 
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.subject.PrincipalCollection;

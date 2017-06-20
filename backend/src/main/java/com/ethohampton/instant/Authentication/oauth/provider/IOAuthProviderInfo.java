@@ -21,8 +21,8 @@
 package com.ethohampton.instant.Authentication.oauth.provider;
 
 
-import com.ethohampton.instant.Authentication.gae.UserAuthType;
 import com.ethohampton.instant.Authentication.oauth.OAuthInfo;
+import com.ethohampton.instant.Authentication.user.UserAuthType;
 
 import java.io.IOException;
 

@@ -21,8 +21,8 @@
 
 package com.ethohampton.instant.web;
 
-import com.ethohampton.instant.Authentication.userManagment.User;
-import com.ethohampton.instant.Authentication.userManagment.UserDAO;
+import com.ethohampton.instant.Authentication.user.User;
+import com.ethohampton.instant.Authentication.user.UserDAO;
 import com.ethohampton.instant.Util.MimeTypes;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;

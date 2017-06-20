@@ -19,7 +19,7 @@
 //
 
 
-package com.ethohampton.instant.Authentication.gae;
+package com.ethohampton.instant.Authentication.user;
 
 import com.googlecode.objectify.annotation.Cache;
 import com.googlecode.objectify.annotation.Entity;
