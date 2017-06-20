@@ -9,7 +9,4 @@
 .externalNativeBuild
 /backend/build/
 app/
-backend/src/main/java/com/ethohampton/instant/Web/
-backend/src/main/webapp/css/
-backend/src/main/webapp/js/
 .idea/modules/
