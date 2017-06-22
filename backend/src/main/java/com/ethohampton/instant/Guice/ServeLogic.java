@@ -22,8 +22,6 @@
 package com.ethohampton.instant.Guice;
 
 
-import com.ethohampton.instant.Authentication.oauth.provider.FacebookAuth;
-import com.ethohampton.instant.Authentication.oauth.provider.IOAuthProviderInfo;
 import com.google.appengine.api.utils.SystemProperty;
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
@@ -54,7 +52,6 @@ public class ServeLogic extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(IOAuthProviderInfo.class).to(FacebookAuth.class);
         bind(ShiroFilter.class).in(Scopes.SINGLETON);
         //bind(AppstatsServlet.class).in(Scopes.SINGLETON);
         //bind(AppstatsFilter.class).in(Scopes.SINGLETON);

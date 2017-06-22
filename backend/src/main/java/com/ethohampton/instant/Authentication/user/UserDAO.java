@@ -22,10 +22,8 @@
 package com.ethohampton.instant.Authentication.user;
 
 import com.googlecode.objectify.ObjectifyService;
-import com.googlecode.objectify.VoidWork;
 import com.googlecode.objectify.Work;
 
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import static com.googlecode.objectify.ObjectifyService.ofy;
@@ -33,12 +31,9 @@ import static com.googlecode.objectify.ObjectifyService.ofy;
 public class UserDAO extends BaseDAO<User> {
     static final Logger LOG = Logger.getLogger(UserDAO.class.getName());
 
-    private static final long REGISTRATION_VALID_DAYS = 1;
-
     static {
         ObjectifyService.register(User.class);
         ObjectifyService.register(UserCounter.class);
-        ObjectifyService.register(RegistrationString.class);
     }
 
     public UserDAO() {
@@ -74,47 +69,8 @@ public class UserDAO extends BaseDAO<User> {
         });
     }
 
-    public RegistrationString saveRegistration(String registrationString, String userName) {
-        RegistrationString reg = new RegistrationString(registrationString, userName, REGISTRATION_VALID_DAYS, TimeUnit.DAYS);
-        new RegistrationDAO().put(reg);
-        return reg;
-    }
-
-    public String findUserNameFromValidCode(String code) {
-        RegistrationDAO dao = new RegistrationDAO();
-        RegistrationString reg = dao.get(code);
-        return (reg == null) ? null : (reg.isValid() ? reg.getUsername() : null);
-    }
-
     public User findUser(String userName) {
         return get(userName);
-    }
-
-    /**
-     * Given a registration we have to retrieve it, and if its valid
-     * update the associated user and then delete the registration.  This isn't
-     * transactional and we may end up with a dangling RegistrationString, which
-     * I can't see as too much of a problem, although they will need to be cleaned up with
-     * a task on a regular basis (after they expire)..
-     *
-     * @param code     The registration code
-     * @param userName the user name for the code
-     */
-    public void register(final String code, final String userName) {
-        ofy().transact(new VoidWork() {
-            public void vrun() {
-                User user = get(userName);
-                if (user != null) {
-                    user.register();
-                    saveUser(user, true);
-                }
-                RegistrationDAO dao = new RegistrationDAO();
-                RegistrationString reg = dao.get(code);
-                if (reg != null) {
-                    dao.delete(code);
-                }
-            }
-        });
     }
 
     public long getCount() {

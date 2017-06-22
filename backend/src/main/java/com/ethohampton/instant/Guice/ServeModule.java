@@ -22,24 +22,9 @@
 package com.ethohampton.instant.Guice;
 
 
-import com.ethohampton.instant.web.AddAnswer;
-import com.ethohampton.instant.web.FreemarkerServlet;
-import com.ethohampton.instant.web.GetQuestion;
 import com.ethohampton.instant.web.MailQueueServlet;
 import com.ethohampton.instant.web.MailReceiveServlet;
-import com.ethohampton.instant.web.PutQuestion;
-import com.ethohampton.instant.web.RandomQuestion;
-import com.ethohampton.instant.web.oauth.GoogleLoginServlet;
-import com.ethohampton.instant.web.oauth.OAuthLoginServlet;
-import com.ethohampton.instant.web.user.ConfirmServlet;
-import com.ethohampton.instant.web.user.LoginServlet;
-import com.ethohampton.instant.web.user.RegisterServlet;
-import com.ethohampton.instant.web.user.SettingsServlet;
-import com.ethohampton.instant.web.user.StatusServlet;
-import com.ethohampton.instant.web.user.UserDeleteServlet;
-import com.ethohampton.instant.web.user.UserListServlet;
-import com.ethohampton.instant.web.user.UserSuspendServlet;
-import com.ethohampton.instant.web.user.dev.AddUsersServlet;
+import com.ethohampton.instant.web.RegisterServlet;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.google.inject.servlet.ServletModule;
@@ -76,32 +61,11 @@ public class ServeModule extends ServletModule {
         filter("/*").through(AsyncCacheFilter.class);
         //filter("/*").through(AppstatsFilter.class, map("calculateRpcCosts", "true"));
 
-        serve("*.ftl").with(FreemarkerServlet.class);
-
-        serve(userBaseUrl + "/ajaxLogin").with(LoginServlet.class);
-        serve(userBaseUrl + "/socialLogin").with(OAuthLoginServlet.class);
-        serve(userBaseUrl + "/googleLogin").with(GoogleLoginServlet.class);
         serve(userBaseUrl + "/register").with(RegisterServlet.class);
         serve(userBaseUrl + "/registermail").with(MailQueueServlet.class);
-        serve(userBaseUrl + "/confirm").with(ConfirmServlet.class);
-        serve(userBaseUrl + "/status").with(StatusServlet.class);
-        serve(userBaseUrl + "/list").with(UserListServlet.class);
-        serve(userBaseUrl + "/suspend").with(UserSuspendServlet.class);
-        serve(userBaseUrl + "/delete").with(UserDeleteServlet.class);
-        serve(userBaseUrl + "/settings").with(SettingsServlet.class);
 
-        serve(userBaseUrl + "/random").with(RandomQuestion.class);
-        serve(userBaseUrl + "/add").with(PutQuestion.class);
-        serve(userBaseUrl + "/vote/*").with(AddAnswer.class);
-        serve(userBaseUrl + "/get/*").with(GetQuestion.class);
-        // this one is here so that the default login filter works
-        serve("/login").with(LoginServlet.class);
         // Lets check mail to see when stuff bounces
         serve("/_ah/mail/*").with(MailReceiveServlet.class);
         // serve("/appstats/*").with(AppstatsServlet.class);
-
-        if (ServeLogic.isDevelopmentServer()) {
-            serve("/testAdd").with(AddUsersServlet.class);
-        }
     }
 }

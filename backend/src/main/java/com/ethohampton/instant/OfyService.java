@@ -1,6 +1,5 @@
 package com.ethohampton.instant;
 
-import com.ethohampton.instant.Objects.Question;
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
 import com.googlecode.objectify.ObjectifyService;
@@ -11,9 +10,7 @@ import com.googlecode.objectify.ObjectifyService;
  */
 
 public class OfyService {
-    static {
-        factory().register(Question.class);
-    }
+
     public static Objectify ofy() {
         return ObjectifyService.ofy();
     }

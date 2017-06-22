@@ -10,3 +10,5 @@
 .externalNativeBuild
 app/
 .idea/modules/
+/backend/build/exploded-app/META-INF/MANIFEST.MF
+/backend/build/tmp/war/MANIFEST.MF

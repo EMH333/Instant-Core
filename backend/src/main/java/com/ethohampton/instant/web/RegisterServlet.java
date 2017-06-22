@@ -19,21 +19,15 @@
 //
 
 
-package com.ethohampton.instant.web.user;
+package com.ethohampton.instant.web;
 
 
 import com.ethohampton.instant.Authentication.user.User;
 import com.ethohampton.instant.Authentication.user.UserDAO;
-import com.ethohampton.instant.web.BaseServlet;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
 
-import org.apache.shiro.crypto.RandomNumberGenerator;
-import org.apache.shiro.crypto.SecureRandomNumberGenerator;
-import org.apache.shiro.crypto.hash.Sha256Hash;
-import org.apache.shiro.util.ByteSource;
-import org.apache.shiro.util.SimpleByteSource;
 import org.apache.shiro.web.util.WebUtils;
 
 import java.io.IOException;
@@ -70,26 +64,23 @@ public class RegisterServlet extends BaseServlet {
             UserDAO dao = new UserDAO();
 
             String userName = WebUtils.getCleanParam(request, USERNAME);
-            boolean isForgot = Boolean.parseBoolean(WebUtils.getCleanParam(request, FORGOT));
+            String email = WebUtils.getCleanParam(request, EMAIL);
 
             User user = dao.findUser(userName);
-            if (!isForgot && user != null && user.isRegistered()) {
+            if (user != null && user.isRegistered()) {
                 // You can't add a user who's already registered
                 issueJson(response, HTTP_STATUS_FORBIDDEN,
                         MESSAGE, userName + " is already registered");
             } else {
-                // we override the user, any registration email should work though (as long as its valid)
-                String registrationString = registrationString(userName);
-                LOG.info("registration is " + registrationString);
+                LOG.info("registration for user with name of " + userName + " and email of " + email);
 
-                dao.saveRegistration(registrationString, userName);
+                //todo save registration
 
                 Queue queue = QueueFactory.getDefaultQueue();
                 queue.add(TaskOptions.Builder
                         .withUrl(userBaseUrl + "/registermail")
                         .param(USERNAME, userName)
-                        .param(FORGOT, Boolean.toString(isForgot))
-                        .param(REGISTRATION_STRING, registrationString));
+                        .param(EMAIL, email));
 
                 issueJson(response, HTTP_STATUS_OK,
                         MESSAGE, "ok");
@@ -100,9 +91,4 @@ public class RegisterServlet extends BaseServlet {
         }
     }
 
-    private String registrationString(String userName) {
-        RandomNumberGenerator rng = new SecureRandomNumberGenerator();
-        ByteSource salt = rng.nextBytes();
-        return new Sha256Hash(userName, new SimpleByteSource(salt), 63).toHex().substring(0, 10);
-    }
 }

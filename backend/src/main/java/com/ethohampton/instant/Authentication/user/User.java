@@ -32,17 +32,8 @@ import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 import com.googlecode.objectify.annotation.Index;
 
-import org.apache.shiro.crypto.RandomNumberGenerator;
-import org.apache.shiro.crypto.SecureRandomNumberGenerator;
-import org.apache.shiro.crypto.hash.Sha256Hash;
-import org.apache.shiro.util.ByteSource;
-import org.apache.shiro.util.SimpleByteSource;
-
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Logger;
 
 @Cache
@@ -51,25 +42,12 @@ import java.util.logging.Logger;
 public class User implements Serializable {
     static final Logger LOG = Logger.getLogger(User.class.getName());
 
-    static final int HASH_ITERATIONS = 1;
-    static final String HASH_ALGORITHM = Sha256Hash.ALGORITHM_NAME;
-
 
     @Id
     private String name;
 
-    //@JsonIgnore
-    private String passwordHash;
-
-    /**
-     * The salt, used to make sure that a dictionary attack is harder given a list of all the
-     * hashed passwords, as each salt will be different.
-     */
-    private byte[] salt;
-
-    private Set<String> roles;
-
-    private Set<String> permissions;
+    @Index
+    private String email;
 
     @Index
     private Date dateRegistered;
@@ -80,49 +58,18 @@ public class User implements Serializable {
      * For objectify to create instances on retrieval
      */
     private User() {
-        this.roles = new HashSet<String>();
-        this.permissions = new HashSet<String>();
     }
 
-    User(String name) {
-        this(name, null, new HashSet<String>(), new HashSet<String>());
-    }
+    public User(String name, String email) {
+        Preconditions.checkNotNull(name, "User name can't be null");
+        Preconditions.checkNotNull(email, "User email can't be null");
 
-
-    User(String name, String password) {
-        this(name, password, new HashSet<String>(), new HashSet<String>());
-    }
-
-    public User(String name, Set<String> roles, Set<String> permissions) {
-        this(name, null, roles, permissions);
-    }
-
-    public User(String name, String password, Set<String> roles, Set<String> permissions) {
-        this(name, password, roles, permissions, false);
-    }
-
-    User(String name, String password, Set<String> roles, Set<String> permissions, boolean isRegistered) {
-        Preconditions.checkNotNull(name, "User name (email) can't be null");
-        Preconditions.checkNotNull(roles, "User roles can't be null");
-        Preconditions.checkNotNull(permissions, "User permissions can't be null");
         this.name = name;
-
-        this.salt = salt().getBytes();
-        this.passwordHash = hash(password, salt);
-        this.roles = Collections.unmodifiableSet(roles);
-        this.permissions = Collections.unmodifiableSet(permissions);
-        this.dateRegistered = isRegistered ? new Date() : null;
+        this.email = email;
+        this.dateRegistered = new Date();
         this.isSuspended = false;
     }
 
-    private static ByteSource salt() {
-        RandomNumberGenerator rng = new SecureRandomNumberGenerator();
-        return rng.nextBytes();
-    }
-
-    private static String hash(String password, byte[] salt) {
-        return (password == null) ? null : new Sha256Hash(password, new SimpleByteSource(salt), HASH_ITERATIONS).toHex();
-    }
 
     public boolean isSuspended() {
         return isSuspended;
@@ -132,11 +79,6 @@ public class User implements Serializable {
         isSuspended = suspended;
     }
 
-    public void setPassword(String password) {
-        Preconditions.checkNotNull(password);
-        this.salt = salt().getBytes();
-        this.passwordHash = hash(password, salt);
-    }
 
     public Date getDateRegistered() {
         return dateRegistered == null ? null : new Date(dateRegistered.getTime());
@@ -155,29 +97,19 @@ public class User implements Serializable {
         return name;
     }
 
-    public String getPasswordHash() {
-        return passwordHash;
+
+    public String getEmail() {
+        return email;
     }
 
-    //@JsonIgnore
-    public byte[] getSalt() {
-        return salt;
-    }
 
-    public Set<String> getRoles() {
-        return roles;
-    }
-
-    public Set<String> getPermissions() {
-        return permissions;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (o instanceof User) {
             User u = (User) o;
             return Objects.equal(getName(), u.getName()) &&
-                    Objects.equal(getPasswordHash(), u.getPasswordHash());
+                    Objects.equal(getEmail(), u.getEmail());
         } else {
             return false;
         }
@@ -185,7 +117,7 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(name, passwordHash);
+        return Objects.hashCode(name, email);
     }
 /*
     public String toJSONString() {

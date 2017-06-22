@@ -21,16 +21,11 @@
 
 package com.ethohampton.instant.web;
 
-import com.ethohampton.instant.Authentication.user.User;
 import com.ethohampton.instant.Authentication.user.UserDAO;
 import com.ethohampton.instant.Util.MimeTypes;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.subject.Subject;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,7 +33,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.util.Collection;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -46,8 +40,6 @@ import javax.inject.Provider;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import lombok.NonNull;
 
 
 public class BaseServlet extends HttpServlet implements ParameterNames, MimeTypes {
@@ -64,32 +56,6 @@ public class BaseServlet extends HttpServlet implements ParameterNames, MimeType
 
     protected BaseServlet(Provider<UserDAO> daoProvider) {
         this.daoProvider = daoProvider;
-    }
-
-    /**
-     * Login and make sure you then have a new session.  This helps prevent session fixation attacks.
-     *
-     * @param token the authentication token
-     * @param subject who is the subject
-     */
-    protected static void loginWithNewSession(AuthenticationToken token, Subject subject) {
-        Session originalSession = subject.getSession();
-
-        Map<Object, Object> attributes = Maps.newLinkedHashMap();
-        Collection<Object> keys = originalSession.getAttributeKeys();
-        for (Object key : keys) {
-            Object value = originalSession.getAttribute(key);
-            if (value != null) {
-                attributes.put(key, value);
-            }
-        }
-        originalSession.stop();
-        subject.login(token);
-
-        Session newSession = subject.getSession();
-        for (Object key : attributes.keySet()) {
-            newSession.setAttribute(key, attributes.get(key));
-        }
     }
 
     // to avoid having to create a map for short argument lists
@@ -140,40 +106,9 @@ public class BaseServlet extends HttpServlet implements ParameterNames, MimeType
         }
     }
 
-    protected String stringParameter(@NonNull String name, HttpServletRequest request, String deflt) {
-        String s = request.getParameter(name);
-        return (s == null) ? deflt : s;
-    }
-
-    protected int intParameter(String name, HttpServletRequest request, int deflt) {
-        String s = request.getParameter(name);
-        try {
-            return Integer.parseInt(s);
-        } catch (NumberFormatException e) {
-            return deflt;
-        }
-    }
-
     protected boolean booleanParameter(String name, HttpServletRequest request, boolean deflt) {
         String s = request.getParameter(name);
         return (s == null) ? deflt : Boolean.parseBoolean(s);
-    }
-
-    protected boolean isCurrentUserAdmin() {
-        Subject subject = SecurityUtils.getSubject();
-        return subject.hasRole("admin");
-    }
-
-    @SuppressWarnings({"unchecked"})
-    protected User getCurrentGaeUser() {
-        Subject subject = SecurityUtils.getSubject();
-        String email = (String) subject.getPrincipal();
-        if (email == null) {
-            return null;
-        } else {
-            UserDAO dao = daoProvider.get();
-            return dao.findUser(email);
-        }
     }
 
     public String createDocumentString(String templateName, Map<String, ?> map) {
